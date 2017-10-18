@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.guhugang.imemorys.MainActivity">
+  <include
+      layout="@layout/top"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/colorPrimary"/>
+  <FrameLayout
+      android:id="@+id/id_content"
+      android:layout_weight="1"
+      android:background="#ffffffff"
+      android:layout_width="match_parent"
+      android:layout_height="0dp">
+  </FrameLayout>
+  <include layout="@layout/bottom"/>
+</LinearLayout>

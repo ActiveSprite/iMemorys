@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="40dp">
+    <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:gravity="center"
+        android:background="#0000"
+        android:src="@drawable/plus"
+        android:scaleType="fitCenter"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:padding="10dp"
+        android:textSize="15sp"
+        android:text="相簿"/>
+    <ImageButton
+        android:id="@+id/searchbutton"
+        android:layout_width="40dp"
+        android:background="#0000"
+        android:src="@drawable/search"
+        android:gravity="center"
+        android:scaleType="fitCenter"
+        android:padding="8dp"
+        android:layout_height="match_parent" />
+    <Button
+        android:layout_width="40dp"
+        android:layout_height="match_parent"
+        android:background="#0000"
+        android:text="编辑"
+        android:textSize="15sp"
+        android:padding="5dp"
+        android:textColor="@color/colorPrimary"
+        />
+</LinearLayout>
