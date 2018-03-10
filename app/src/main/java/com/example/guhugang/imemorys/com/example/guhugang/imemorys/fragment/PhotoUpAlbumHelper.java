@@ -23,7 +23,7 @@ public class PhotoUpAlbumHelper extends AsyncTask<Object, Object, Object>{
 	
 	HashMap<String, PhotoUpImageBucket<PhotoUpImageItem>> bucketList = new HashMap<String, PhotoUpImageBucket<PhotoUpImageItem>>();
 	private GetAlbumList getAlbumList;
-	
+	PhotoUpImageBucket allPictures;
 	private PhotoUpAlbumHelper() {}
 	public static PhotoUpAlbumHelper getHelper() {
 		PhotoUpAlbumHelper instance = new PhotoUpAlbumHelper();
@@ -34,6 +34,9 @@ public class PhotoUpAlbumHelper extends AsyncTask<Object, Object, Object>{
 		if (this.context == null) {
 			this.context = context;
 			cr = context.getContentResolver();
+			allPictures=new PhotoUpImageBucket();
+			allPictures.imageList=new ArrayList();
+			allPictures.bucketName="所有图片";
 		}
 	}
 
@@ -77,6 +80,9 @@ public class PhotoUpAlbumHelper extends AsyncTask<Object, Object, Object>{
 					imageItem.setImagePath(path);
 //					imageItem.setThumbnailPath(thumbnailList.get(_id));
 					bucket.imageList.add(imageItem);
+
+					allPictures.imageList.add(imageItem);
+					allPictures.count++;
 					//Log.i(TAG, "PhotoUpAlbumHelper绫讳腑 鐨勨�斺�斻�媝ath="+thumbnailList.get(_id));
 				}
 			} while (cur.moveToNext());
@@ -91,6 +97,7 @@ public class PhotoUpAlbumHelper extends AsyncTask<Object, Object, Object>{
 			buildImagesBucketList();
 		}
 		List<PhotoUpImageBucket> tmpList = new ArrayList<PhotoUpImageBucket>();
+		tmpList.add(allPictures);
 		Iterator<Entry<String, PhotoUpImageBucket<PhotoUpImageItem>>> itr = bucketList.entrySet().iterator();
 		while (itr.hasNext()) {
 			Entry<String, PhotoUpImageBucket<PhotoUpImageItem>> entry = (Entry<String, PhotoUpImageBucket<PhotoUpImageItem>>) itr

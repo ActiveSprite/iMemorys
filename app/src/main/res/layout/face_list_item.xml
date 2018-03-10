@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+        >
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/id_face_example"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/icon_ku_156"
+            app:border_color="@color/cardview_shadow_start_color"
+             />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"
+            >
+          <TextView
+              android:id="@+id/id_face_name"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="未命名"
+              />
+            <TextView
+                android:id="@+id/id_face_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0张"
+                />
+        </LinearLayout>
+
+    </LinearLayout>

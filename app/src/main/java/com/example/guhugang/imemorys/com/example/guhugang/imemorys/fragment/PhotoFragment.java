@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Images.Media;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ import android.widget.GridView;
 
 import com.example.guhugang.imemorys.GridItem;
 import com.example.guhugang.imemorys.ImageScanner;
+import com.example.guhugang.imemorys.PhotoUpImageItem;
 import com.example.guhugang.imemorys.R;
 import com.example.guhugang.imemorys.StickyGridAdapter;
 import com.example.guhugang.imemorys.YMComparator;
@@ -38,17 +40,28 @@ public class PhotoFragment extends Fragment implements OnClickListener{
 	private GridView mGridView;
 	private List<GridItem> mGirdList = new ArrayList<GridItem>();
 	private static int section = 1;
+	ArrayList<PhotoUpImageItem> ImageItemList=new ArrayList<>();
 	private Map<String, Integer> sectionMap = new HashMap<String, Integer>();
+	private View rootView;
+
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
 		//引入我们的布局
-
-		return inflater.inflate(R.layout.photo_fragment, container, false);
+		if(rootView==null){
+			rootView=inflater.inflate(R.layout.photo_fragment, null);
+		}
+		//缓存的rootView需要判断是否已经被加过parent， 如果有parent需要从parent删除，要不然会发生这个rootview已经有parent的错误。
+		ViewGroup parent = (ViewGroup) rootView.getParent();
+		if (parent != null) {
+			parent.removeView(rootView);
+		}
+		return rootView;
 
 	}
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		mGridView = (GridView)getActivity().findViewById(R.id.asset_grid);
+		ViewCompat.setNestedScrollingEnabled(mGridView, true);
 		mScanner = new ImageScanner(getActivity());
 		Log.i("time","hh");
 
@@ -66,13 +79,16 @@ public class PhotoFragment extends Fragment implements OnClickListener{
 					// 获取图片的路径
 					String path = cursor.getString(cursor
 							.getColumnIndex(MediaStore.Images.Media.DATA));
+					String id=cursor.getString(cursor.getColumnIndex(Media._ID));
 					long times = cursor.getLong(cursor
 							.getColumnIndex(MediaStore.Images.Media.DATE_ADDED));
+
 //					int photoplaceIndex=cursor.getColumnIndexOrThrow(Media.DESCRIPTION );
 //					String place=cursor.getString(photoplaceIndex);
 //					//String datetime=convert(time);
-					Log.i("time",path);
+//					Log.i("time",path);
 					GridItem mGridItem = new GridItem(path, paserTimeToYM(times));
+					mGridItem.setId(id);
 					mGirdList.add(mGridItem);
 
 				}
@@ -85,6 +101,10 @@ public class PhotoFragment extends Fragment implements OnClickListener{
 				//Collections.sort(tmpList,descComparator);
 				for(ListIterator<GridItem> it = mGirdList.listIterator(); it.hasNext();){
 					GridItem mGridItem = it.next();
+					PhotoUpImageItem Item=new PhotoUpImageItem();
+					Item.setImagePath(mGridItem.getPath());
+					Item.setImageId(mGridItem.getId());
+					ImageItemList.add(Item);
 					String ym = mGridItem.getTime();
 					if(!sectionMap.containsKey(ym)){
 						mGridItem.setSection(section);
@@ -95,7 +115,7 @@ public class PhotoFragment extends Fragment implements OnClickListener{
 					}
 				}
 
-				mGridView.setAdapter(new StickyGridAdapter(getActivity(), mGirdList, mGridView));
+				mGridView.setAdapter(new StickyGridAdapter(getActivity(), mGirdList, mGridView,ImageItemList));
 
 			}
 		});
@@ -113,4 +133,10 @@ public class PhotoFragment extends Fragment implements OnClickListener{
 		// TODO Auto-generated method stub
 
 	}
+	public static PhotoFragment newInstance() {
+		PhotoFragment fragment = new PhotoFragment();
+		Bundle bundle = new Bundle();
+		return fragment;
+	}
+
 }

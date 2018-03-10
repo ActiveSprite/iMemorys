@@ -13,13 +13,13 @@ import okhttp3.Response;
 
 public class AddFace {
 
-
+    private static final OkHttpClient mOkHttpClient = new OkHttpClient();
 
     public void AddFace(){
 
     }
     public  void addfacetoset(String facesettoken,String facetoken){
-        OkHttpClient mOkHttpClient = new OkHttpClient();
+
         FormBody.Builder builder = new FormBody.Builder();
         builder.add("api_key",Constant.api_key);
         builder.add("api_secret",Constant.api_secret);

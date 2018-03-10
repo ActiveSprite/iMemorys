@@ -1,20 +1,59 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+
+    <style name="AppTheme" parent="AppTheme.Parent">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/colorActionMode</item>
+        <item name="colorPrimaryDark">@color/colorActionModeDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="actionModeStyle">@style/CustomActionMode</item>
     </style>
-    <style name="Anim_fade" parent="android:Theme.NoTitleBar">
+    <style name="AppTheme.Parent" parent="Theme.AppCompat.Light">
+        <item name="windowActionModeOverlay">true</item>
+        <item name="windowActionBarOverlay">true</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+    </style>
+
+    <style name="CustomActionMode" parent="@style/Widget.AppCompat.ActionMode">
+        <item name="background">@color/colorActionMode</item>
+        <item name="height">55dp</item>
+    </style>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="Anim_fade" parent="Theme.AppCompat.Light">
+        <item name="colorPrimary">@color/colorActionMode</item>
+        <item name="actionModeStyle">@style/CustomActionMode</item>
+        <item name="colorPrimaryDark">@color/colorActionModeDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:windowContentTransitions">true</item>
         <item name="android:windowAnimationStyle">@style/fade</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="windowActionBarOverlay">true</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowTitleStyle">@style/WindowTitle</item>
     </style>
 
     <style name="fade" parent="@android:style/Animation.Activity">
         <item name="android:activityOpenEnterAnimation">@anim/activity_in</item>
-        <item name="android:activityOpenExitAnimation">@anim/activity_out</item>
+        <item name="android:activityOpenExitAnimation">@anim/activity_in</item>
         <item name="android:activityCloseEnterAnimation">@anim/activity_in</item>
         <item name="android:activityCloseExitAnimation">@anim/activity_out</item>
+    </style>
+
+    <style name="WindowTitle" parent="@android:style/TextAppearance">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Theme.ToolBar.Base.Subtitle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 </resources>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.guhugang.imemorys">
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -15,27 +16,65 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
+
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
+        tools:replace="android:icon,android:label"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="2e309ad08544718338e85e7050eb9864"
+            />
+
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="adjustPan"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PhotoActivity" />
+        <activity
+            android:name="org.lasque.tusdk.impl.activity.TuFragmentActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity android:name=".PhotoActivity" android:hardwareAccelerated="true"/>
         <activity android:name=".SwitcherActivity" />
-        <activity android:name="com.example.guhugang.moreused.ShowGalleryActivity" android:theme="@style/Anim_fade"/>
+        <activity android:name=".ShowResultActivity" />
+        <activity android:name="com.example.guhugang.moreused.ShowGalleryActivity" android:theme="@style/Anim_fade"
+            android:hardwareAccelerated="true"/>
+        <activity android:name="com.example.guhugang.example.guhugang.uploadfileservice.ShowCategoryActivity"
+            android:process="com.example.guhugang.imemorys.cat"/>
+        <activity android:name="com.example.guhugang.example.guhugang.uploadfileservice.ShowAlbumItemActivity"
+            android:process="com.example.guhugang.imemorys.cat"
+            />
+        <service android:name="com.example.guhugang.example.guhugang.uploadfileservice.UploadService"
+            android:process="com.example.guhugang.imemorys.cat" />
 
-        <service android:name="com.example.guhugang.example.guhugang.uploadfileservice.UploadService" />
+        <service android:name="com.example.guhugang.imemorys.ImageTagService" />
 
-        <receiver android:name="com.example.guhugang.example.guhugang.boot.BootCompletedReceiver" />
+        <receiver android:name="com.example.guhugang.example.guhugang.boot.BootCompletedReceiver" >
+            <intent-filter>
+                <action android:name="android.net.wifi.STATE_CHANGE" />
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
+            </intent-filter>
+        </receiver>
 
-        <activity android:name=".ShowFileItemActivity" ></activity>
+        <activity android:name=".ShowFileItemActivity" android:theme="@style/Anim_fade"
+            android:hardwareAccelerated="true"
+            ></activity>
+
+        <activity android:name=".PhotoFragmentActivity" android:theme="@style/Anim_fade"></activity>
+        <activity android:name=".ShowTagActivity" android:theme="@style/Anim_fade"></activity>
+        <activity android:name=".ShowLocationActivity" />
+        <activity android:name=".com.example.guhugang.imemorys.fragment.TaggedActivity" />
+        <activity android:name=".SeachActivity"/>
     </application>
 
 </manifest>

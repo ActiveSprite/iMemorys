@@ -2,9 +2,11 @@ package com.example.guhugang.example.guhugang.uploadfileservice;
 
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -16,6 +18,7 @@ import android.widget.ImageView.ScaleType;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.guhugang.example.sqlite.DBDao;
 import com.example.guhugang.imemorys.PhotoUpImageItem;
 import com.example.guhugang.imemorys.R;
 import com.example.guhugang.imemorys.com.example.guhugang.imemorys.fragment.PhotoUpImageBucket;
@@ -28,7 +31,7 @@ import java.util.List;
 public class AlbumItemAdapter<T extends PhotoUpImageItem> extends BaseAdapter {
 	private List<T> list;
 	private LayoutInflater layoutInflater;
-
+    DBDao dbDao;
 	 private int selectPic = -1;
 	 private Context mcontext;
 	 private Toast mToast;
@@ -37,7 +40,7 @@ public class AlbumItemAdapter<T extends PhotoUpImageItem> extends BaseAdapter {
 	public AlbumItemAdapter(List<T> list,Context context){
 		this.list = list;
 		this.mcontext=context;
-
+		dbDao=new DBDao(context);
 		layoutInflater = LayoutInflater.from(context);
 		
 	}
@@ -70,21 +73,17 @@ public class AlbumItemAdapter<T extends PhotoUpImageItem> extends BaseAdapter {
 
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
-		final Holder holder=new Holder(); ;
+		final Holder holder;
 		if (convertView == null) {
-			holder.imageView = new ImageView(mcontext);
-			holder.imageView.setLayoutParams(new ViewGroup.LayoutParams( 
-			         LayoutParams.FILL_PARENT, 
-			        (int) getRawSize(TypedValue.COMPLEX_UNIT_DIP, 90)));
-			holder.imageView.setScaleType(ScaleType.CENTER_CROP);
-
+			convertView=layoutInflater.inflate(R.layout.album_item_adapter,parent,false);
+			holder=new Holder();
+			holder.imageView = (ImageView)convertView.findViewById(R.id.item);
+			convertView.setTag(holder);
 		}else {
-			holder.imageView = (ImageView) convertView;
+			holder=(Holder)convertView.getTag();
 		}
-		
-
-		
 		File file = new File(list.get(position).getImagePath()) ;
+
 		Log.i("position",String.valueOf(position));
 		Log.i("paths",list.get(position).getImagePath());
 		Glide
@@ -98,11 +97,11 @@ public class AlbumItemAdapter<T extends PhotoUpImageItem> extends BaseAdapter {
 				intent.putExtra("imagelist",(ArrayList)list);
 				intent.putExtra("position", position);
 				mcontext.startActivity(intent);
-				//((Activity) mcontext).overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
+	//			((Activity) mcontext).overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
 			}
 		});
 
-		return holder.imageView;
+		return convertView;
 	}
 
 	public float getRawSize(int unit, float value) { 
@@ -115,5 +114,15 @@ public class AlbumItemAdapter<T extends PhotoUpImageItem> extends BaseAdapter {
 		ImageView imageView;
 		
 	}
-	
+	public boolean fileIsExists(String strFlie) {
+		try {
+			File file = new File(strFlie);
+			if (!file.exists()) {
+				return false;
+			}
+		}catch (Exception e){
+			return false;
+		}
+		return true;
+	}
 }

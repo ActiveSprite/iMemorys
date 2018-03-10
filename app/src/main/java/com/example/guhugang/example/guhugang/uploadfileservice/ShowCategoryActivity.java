@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 
+import com.example.guhugang.imemorys.FaceListAdapter;
+
 import java.util.List;
 
 /**
@@ -17,22 +19,13 @@ public class ShowCategoryActivity extends CategoryActivity<FacePictureBucket> {
        loadPicture=new LoadPicture(this);
         loadPicture.scanImages(new LoadPicture.ScanCompleteCallBack(){
             public void scanComplete(List<FacePictureBucket> fpblist){
-                adapter.setArrayList(fpblist);
-                adapter.notifyDataSetChanged();
-                ShowCategoryActivity.this.list = fpblist;
+                if(fpblist!=null) {
+                    adapter = new FaceListAdapter(ShowCategoryActivity.this, fpblist);
+                    listView.setAdapter(adapter);
+                }
             }
         });
     }
 
-    @Override
-    public void onItemClick() {
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(ShowCategoryActivity.this,ShowAlbumItemActivity.class);
-                intent.putExtra("imagelist", list.get(position));
-                startActivity(intent);
-            }
-        });
-    }
+
 }

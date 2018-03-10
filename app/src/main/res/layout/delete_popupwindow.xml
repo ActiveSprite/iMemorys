@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:id="@+id/pop_layout"
+    android:layout_width="match_parent"
+    android:background="#ffffffff"
+    android:layout_height="wrap_content">
+    <Button
+        android:id="@+id/delete_menu"
+        android:layout_width="match_parent"
+        android:text="删除本相册同时将删除图片"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/cancel"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:text="取消"
+        android:layout_height="wrap_content" />
+</LinearLayout>

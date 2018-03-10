@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class GridItem implements Serializable{
 	private String path;
 	private String time;
+	private String id;
 	private int section;
 
 	public GridItem(String path, String time) {
@@ -12,7 +13,15 @@ public class GridItem implements Serializable{
 		this.path = path;
 		this.time = time;
 	}
-	
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public String getPath() {
 		return path;
 	}

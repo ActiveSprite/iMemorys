@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="10dp"
+    android:orientation="horizontal"
+    android:background="#ffffffff"
+    >
+    <ImageView
+        android:layout_width="70dp"
+        android:id="@+id/searched_img"
+        android:layout_margin="10dp"
+        android:scaleType="centerCrop"
+        android:background="#cccccc"
+        android:layout_height="70dp" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginLeft="30dp"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:id="@+id/searched_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="left"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_marginLeft="5dp"
+            android:singleLine="true"
+            android:text="share" />
+        <RelativeLayout
+            android:padding="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/searched_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:textColor="@color/colorPrimaryDark"
+                android:text="0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_toRightOf="@id/searched_count"
+                android:text="张" />
+        </RelativeLayout>
+    </LinearLayout>
+    <ImageView
+        android:layout_width="15dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/enter"
+        android:alpha="0.5"
+        android:layout_marginRight="30dp"
+        android:layout_gravity="center_vertical"
+        android:layout_height="15dp" />
+</LinearLayout>

@@ -1,34 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
     <LinearLayout
-        android:id="@+id/title"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:background="#ffffffff"
         android:orientation="vertical"
-        >
-       <include layout="@layout/gridview_header"/>
-        <View
+        android:layout_height="match_parent">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_file"
             android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/colorPrimary"/>
+            android:background="@color/colorActionMode"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_scrollFlags="scroll|enterAlways"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:layout_collapseMode="pin"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/toolbar_bg"
+        android:visibility="gone"
+        />
+
     <GridView
         android:id="@+id/album_item_gridv"
         android:layout_width="match_parent"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:columnWidth="70dip"
+        android:layoutAnimation="@anim/gride_animation"
         android:numColumns="auto_fit"
         android:horizontalSpacing="3dip"
         android:verticalSpacing="3dip"
         android:layout_centerHorizontal="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         />
     </LinearLayout>
-</FrameLayout>
+</android.support.design.widget.CoordinatorLayout>
 
 

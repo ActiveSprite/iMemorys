@@ -68,7 +68,8 @@ public class LoadPicture {
         while (itr.hasNext()) {
             Map.Entry<Integer, FacePictureBucket> entry = (Map.Entry<Integer, FacePictureBucket>) itr
                     .next();
-            tmpList.add(entry.getValue());
+                tmpList.add(entry.getValue());
+
         }
         return tmpList;
     }

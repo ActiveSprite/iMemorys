@@ -38,7 +38,7 @@ public class DetectForkTask extends RecursiveAction {
     @Override
     protected void compute() {
         //long s=System.currentTimeMillis();
-        if(end-start<=20){
+        if(end-start<=100){
             for(int i=start;i<end;i++){
                 detectFace(plist.get(i).getId(),plist.get(i).getPath());
             }

@@ -3,6 +3,7 @@ package com.example.guhugang.imemorys;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -26,6 +27,7 @@ public class PhotoActivity extends Activity{
    	Intent intent = getIntent();
    	imglist = ( ArrayList<GridItem>) intent.getSerializableExtra("imagelist");
      int position=getIntent().getIntExtra("position", 0);
+     Log.i("Mposition",String .valueOf(position));
      adapter=new PhotoAdapter(imglist,this);
      expandedView.setAdapter(adapter);
      expandedView.setCurrentItem(position);

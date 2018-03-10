@@ -13,7 +13,7 @@
         android:paddingBottom="8dp"
         android:paddingLeft="4dp"
         android:paddingTop="8dp"
-        android:textColor="#ff33b5e5"
+        android:textColor="@color/lsq_color_black"
         android:textSize="10sp"
         android:textStyle="bold" />
 

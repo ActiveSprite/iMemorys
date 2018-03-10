@@ -20,8 +20,11 @@ public class DBHelper extends SQLiteOpenHelper {
 		db.execSQL("CREATE TABLE IF NOT EXISTS facepicture" +
 				"(pictureid VARCHAR PRIMARY KEY ,path VARCHAR)");
 		db.execSQL("CREATE TABLE IF NOT EXISTS facetoken" +
-				"(id INTEGER PRIMARY KEY AUTOINCREMENT,pictureid VARCHAR UNIQUE,path VARCHAR,faceid VARCHAR,category INTEGER)");
+				"(id INTEGER PRIMARY KEY AUTOINCREMENT,pictureid VARCHAR UNIQUE,path VARCHAR,faceid VARCHAR,category INTEGER," +
+				"face_left INTEGER,face_top INTEGER,face_width INTEGER,face_height INTEGER)");
+		db.execSQL("CREATE TABLE IF NOT EXISTS collection"+"(pid VARCHAR PRIMARY KEY,src_path VARCHAR,dest_path VARCHAR)");
 
+		db.execSQL("CREATE TABLE IF NOT EXISTS imagetag_data"+"(tagged_id VARCHAR PRIMARY KEY,tagged_path VARCHAR,image_tag VARCHAR,location VARCHAR)");
 
 	}
 

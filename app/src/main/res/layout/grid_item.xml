@@ -5,8 +5,8 @@
 
     <com.example.guhugang.imemorys.MyImageView
         android:id="@+id/grid_item"
-        android:scaleType="centerInside"
+        android:scaleType="centerCrop"
         android:layout_width="fill_parent"
-        android:layout_height="70dp" />
+        android:layout_height="100dp" />
 
 </RelativeLayout>

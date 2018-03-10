@@ -1,9 +1,12 @@
 package com.example.guhugang.imemorys;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +15,7 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.guhugang.imemorys.com.example.guhugang.imemorys.fragment.PhotoFragment;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -28,11 +32,13 @@ public class StickyGridAdapter extends BaseAdapter implements
 	private GridView mGridView;
 	private Point mPoint = new Point(0, 0);
 	Context context;
+	ArrayList<PhotoUpImageItem> ImageItemList;
 	public StickyGridAdapter(Context context, List<GridItem> list,
-							 GridView mGridView) {
+							 GridView mGridView,ArrayList<PhotoUpImageItem>ImageItemList) {
 		this.context=context;
 		this.list = list;
 		mInflater = LayoutInflater.from(context);
+		this.ImageItemList=ImageItemList;
 		this.mGridView = mGridView;
 	}
 
@@ -53,7 +59,7 @@ public class StickyGridAdapter extends BaseAdapter implements
 
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
-		ViewHolder mViewHolder;
+		final ViewHolder mViewHolder;
 		if (convertView == null) {
 			mViewHolder = new ViewHolder();
 			convertView = mInflater.inflate(R.layout.grid_item, parent, false);
@@ -63,19 +69,19 @@ public class StickyGridAdapter extends BaseAdapter implements
 			
 
 			mViewHolder.mImageView.setOnMeasureListener(new MyImageView.OnMeasureListener() {
-                  
-                @Override  
-                public void onMeasureSize(int width, int height) {  
-                    mPoint.set(width, height);  
-                }  
-            }); 
+
+                @Override
+                public void onMeasureSize(int width, int height) {
+                    mPoint.set(width, height);
+                }
+            });
 			
 		} else {
 			mViewHolder = (ViewHolder) convertView.getTag();
 		}
 
 		String path = list.get(position).getPath();
-	
+	    Log.i("list",list.get(position).getPath());
 		File file = new File(path) ;
 		Glide
 	    .with(context)
@@ -84,15 +90,16 @@ public class StickyGridAdapter extends BaseAdapter implements
 		mViewHolder.mImageView.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(context, PhotoActivity.class);				
+				Intent intent = new Intent(context, PhotoFragmentActivity.class);
 
-				intent.putExtra("imagelist",(ArrayList)list);
-				
+				intent.putExtra("imagelist",(ArrayList)ImageItemList);
+				Log.i("imageList",ImageItemList.get(position).getImagePath());
 //				Toast.makeText(mcontext, "file://"+list.get(position).getImagePath(), Toast.LENGTH_LONG).show();
 				intent.putExtra("position", position);
+				ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((AppCompatActivity)context, mViewHolder.mImageView, "picture");
 
 				context.startActivity(intent);
-				((Activity) context).overridePendingTransition(0, 0);
+//				((Activity) context).overridePendingTransition(0, 0);
 				
 //				
 			}

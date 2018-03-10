@@ -17,6 +17,8 @@ import android.util.Log;
 
 
 import com.example.guhugang.example.sqlite.DBDao;
+import com.example.guhugang.imemorys.MyRunnable;
+import com.example.guhugang.moreused.MyRect;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -25,6 +27,7 @@ import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ForkJoinPool;
@@ -63,6 +66,10 @@ public class UploadService  extends IntentService{
 
     SharedPreferences preference;
     SharedPreferences.Editor edit;
+
+    ExecutorService executorService = Executors.newFixedThreadPool(5);
+    private int single_number=100;
+
     public UploadService(){
         super("UploadService");
 
@@ -222,21 +229,40 @@ public class UploadService  extends IntentService{
             }while(cur.moveToNext());
 
         }
-        if(plist!=null) {
-            ForkJoinPool pool = new ForkJoinPool();
-            pool.submit(new DetectForkTask(this, 0, plist.size(), plist));
-            try {
-                pool.shutdown();
-                pool.awaitTermination(Long.MAX_VALUE,TimeUnit.SECONDS);
-
-            }catch (Exception e){
-
-            }
-            Log.i("info","任务完成");
+        departTask(plist);
+        try {
+            executorService.shutdown();
+            executorService.awaitTermination(Long.MAX_VALUE,TimeUnit.SECONDS);
+        }catch (Exception e){
 
         }
-    }
 
+//        if(plist!=null) {
+//            ForkJoinPool pool = new ForkJoinPool();
+//            pool.submit(new DetectForkTask(this, 0, plist.size(), plist));
+//            try {
+//                pool.shutdown();
+//                pool.awaitTermination(Long.MAX_VALUE,TimeUnit.SECONDS);
+//
+//            }catch (Exception e){
+//
+//            }
+//            Log.i("info","任务完成");
+//
+//        }
+    }
+public void departTask(ArrayList<Data>mDataList){
+    if(mDataList==null)return;
+    int number=mDataList.size()/single_number;
+    for(int i=0;i<number;i++){
+        MyDetectFaceRunnable syncRunnable=new MyDetectFaceRunnable(this,single_number*i,single_number*i+single_number,mDataList);
+        executorService.execute(syncRunnable);
+    }
+    int last_start=single_number*number;
+    int last_end=mDataList.size();
+    MyDetectFaceRunnable syncRunnable=new MyDetectFaceRunnable(this,last_start,last_end,mDataList);
+    executorService.execute(syncRunnable);
+}
     public boolean checkFace(Rect rect){
         int w = rect.width();
         int h = rect.height();
@@ -317,13 +343,30 @@ public void savetosqlite(){
                             JSONObject facejson = jsonarray.getJSONObject(x);
 
                             String facetokens = facejson.getString("face_token");
+                            JSONObject face_rect=facejson.getJSONObject("face_rectangle");
+                            int left=face_rect.getInt("left");
+                            int top=face_rect.getInt("top");
+                            int width=face_rect.getInt("width");
+                            int height=face_rect.getInt("height");
+
+                            Log.i("left",String.valueOf(left));
+                            Log.i("width",String.valueOf(width));
+
+                            Rect rect=new Rect(left,top,left+width,top+height);
+                            int w=rect.width();
+                            int h=rect.height();
+                            rect.left=rect.left-w/2;
+                            rect.right=rect.right+w/2;
+                            rect.top=rect.top-h/2;
+                            rect.bottom=rect.bottom+h/2;
 
                             FacePicture fp = new FacePicture();
                             //addFace.addfacetoset("hh",facetokens);
-                            if (isExistfacetoken(fid) == false) {
+                            if (isExistfacetoken(fid) == false&&w*h>10000) {
                                 fp.setImageId(fid);
                                 fp.setImagePath(fppath);
                                 fp.setfacetoken(facetokens);
+                                fp.rect=new MyRect(rect);
                                 addFace.addfacetoset("hh", facetokens);
                                 dbDao.addfacetoken(fp);
                             }
