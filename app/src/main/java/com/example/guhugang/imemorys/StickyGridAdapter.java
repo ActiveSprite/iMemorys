@@ -81,7 +81,6 @@ public class StickyGridAdapter extends BaseAdapter implements
 		}
 
 		String path = list.get(position).getPath();
-	    Log.i("list",list.get(position).getPath());
 		File file = new File(path) ;
 		Glide
 	    .with(context)
@@ -93,8 +92,6 @@ public class StickyGridAdapter extends BaseAdapter implements
 				Intent intent = new Intent(context, PhotoFragmentActivity.class);
 
 				intent.putExtra("imagelist",(ArrayList)ImageItemList);
-				Log.i("imageList",ImageItemList.get(position).getImagePath());
-//				Toast.makeText(mcontext, "file://"+list.get(position).getImagePath(), Toast.LENGTH_LONG).show();
 				intent.putExtra("position", position);
 				ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((AppCompatActivity)context, mViewHolder.mImageView, "picture");
 

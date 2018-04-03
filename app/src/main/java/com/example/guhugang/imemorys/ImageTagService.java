@@ -24,7 +24,6 @@ public class ImageTagService extends Service {
     ExecutorService executorService = Executors.newFixedThreadPool(3);
     private int single_number=50;
     public void onCreate() {
-        System.out.println("onCreate invoke");
         super.onCreate();
     }
 
@@ -39,7 +38,6 @@ public class ImageTagService extends Service {
     }
     public void GetImageTag() {
         mScanner = new ImageScanner(this);
-        Log.i("tagservice", "hh");
 
         mScanner.scanImages(new ImageScanner.ScanCompleteCallBack() {
 
@@ -71,7 +69,7 @@ public class ImageTagService extends Service {
 
     }
     public void departTask(){
-        Log.i("wwee",String.valueOf(taggedList.size()));
+
         if(taggedList==null)return;
         int number=taggedList.size()/single_number;
         for(int i=0;i<number;i++){

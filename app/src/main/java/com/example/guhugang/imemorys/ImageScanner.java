@@ -35,15 +35,6 @@ public class ImageScanner {
 			public void run() {
 				Uri mImageUri = Media.EXTERNAL_CONTENT_URI;
 				ContentResolver mContentResolver = mContext.getContentResolver();
-
-				// 只查询jpeg和png的图片
-//				Cursor mCursor = mContentResolver.query(mImageUri, null,
-//						MediaStore.Images.Media.MIME_TYPE + "=? or "
-//								+ MediaStore.Images.Media.MIME_TYPE + "=?",
-//						new String[] { "image/jpeg", "image/png" },
-//						MediaStore.Images.Media.DATE_MODIFIED);
-
-
 				String columns[] = new String[] { Media._ID, Media.BUCKET_ID,
 						Media.PICASA_ID, Media.DATA, Media.DISPLAY_NAME, Media.TITLE,
 						Media.SIZE, Media.DATE_ADDED};
@@ -51,8 +42,6 @@ public class ImageScanner {
 				String[] selectionargs={"%/storage/emulated/0/DCIM/%"};
 				Cursor mCursor = mContentResolver.query(mImageUri,columns,selection, selectionargs,
 						Media.DATE_MODIFIED+" desc");
-				Log.i("isnull",String.valueOf(mCursor==null));
-				//			Cursor mCursor = mContentResolver.query(mImageUri, null, null, null, null);
 
 				//利用Handler通知调用线程
 				Message msg = mHandler.obtainMessage();

@@ -60,7 +60,7 @@ public class DepartLocation {
                     }
                 }
                 List<PhotoUpImageBucket<TaggedImageItem>>imglist= getImagesBucketList();
-                Log.i("aaaa",imglist.get(0).getImageList().get(0).toString());
+//                Log.i("aaaa",imglist.get(0).getImageList().get(0).toString());
                 Message msg = mHandler.obtainMessage();
                 msg.obj = imglist;
                 mHandler.sendMessage(msg);

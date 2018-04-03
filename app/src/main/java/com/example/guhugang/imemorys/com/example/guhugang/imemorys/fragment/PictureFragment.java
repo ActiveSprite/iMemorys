@@ -61,7 +61,6 @@ public class PictureFragment extends Fragment{
         Bundle args = new Bundle();
         args.putString("image", path);
         args.putString("imageid",imageId);
-        Log.i("my_path",path);
         imageFragment.setArguments(args);
         return imageFragment;
     }
@@ -74,17 +73,12 @@ public class PictureFragment extends Fragment{
         layer1=(LargeImageView)view.findViewById(R.id.layer_bottom);
         layer2=(SubsamplingScaleImageView)view.findViewById(R.id.layer_top);
         layer2.setMinimumScaleType(SubsamplingScaleImageView.SCALE_TYPE_CUSTOM);
-//        layer2.setMaxScale(10.0f);
-//        layer2.setDoubleTapZoomDpi(180);
         path= getArguments().getString("image");
         ImageId=getArguments().getString("imageid");
         handler=new Handler();
-//        initView();
         layer1.setTransitionName("picture");
         final File file = new File(path) ;
-//        layer1.setImage(new FileBitmapDecoderFactory(file));
         loadBitmap();
-//        loadBitmaptoImage();
         return view;
     }
     public String getPath(){
@@ -133,126 +127,5 @@ public class PictureFragment extends Fragment{
             }
         }).into(v);
 
-
-//        Glide.with(getActivity()).load(file).asBitmap().into(new SimpleTarget<Bitmap>() {
-//            @Override
-//            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-//                if(resource!=null) {
-//                    Drawable drawable = new BitmapDrawable(resource);
-//                    final ConstantState constantState = ConstantState.getInstance();
-//                    layer1.setImage(drawable);
-//                    v.setVisibility(View.INVISIBLE);
-//                    if (constantState.getEditMode()) {
-//                        layer1.setBackgroundColor(Color.WHITE);
-//                    } else {
-//                        layer1.setBackgroundColor(Color.BLACK);
-//                    }
-//                    layer1.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//
-//                            if(constantState.getEditMode()) {
-//                                constantState.setEditMode(false, path);
-//                                v.setBackgroundColor(Color.BLACK);
-//                            }else{
-//                                constantState.setEditMode(true,path);
-//                                v.setBackgroundColor(Color.WHITE);
-//                            }
-//                        }
-//                    });
-//                }
-//            }
-//        });
-
     }
-
-    public void loadBitmaptoImage(){
-        final File file = new File(path) ;
-        imageResizer=new ImageResizer();
-
-        imageResizer.AsyncGetBitmap(path,new ImageResizer.ResizerCompleteCallBack(){
-
-            @Override
-            public void resizerComplete(Bitmap bitmap) {
-                if(bitmap!=null) {
-                    Drawable drawable = new BitmapDrawable(bitmap);
-                    final ConstantState constantState = ConstantState.getInstance();
-                    layer1.setImage(new FileBitmapDecoderFactory(file), drawable);
-                    if (constantState.getEditMode()) {
-                        layer1.setBackgroundColor(Color.WHITE);
-                    } else {
-                        layer1.setBackgroundColor(Color.BLACK);
-                    }
-                    layer1.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                            if(constantState.getEditMode()) {
-                                constantState.setEditMode(false, path);
-                                v.setBackgroundColor(Color.BLACK);
-                            }else{
-                                constantState.setEditMode(true,path);
-                                v.setBackgroundColor(Color.WHITE);
-                            }
-                        }
-                    });
-                }
-            }
-        });
-    }
-    public void initView(){
-
-        final File file = new File(path) ;
-
-
-        imageResizer=new ImageResizer();
-
-            //    .into(v);
-        imageResizer.AsyncGetBitmap(path,new ImageResizer.ResizerCompleteCallBack(){
-
-                    @Override
-                    public void resizerComplete(Bitmap bitmap) {
-                        if(bitmap!=null) {
-                            //layer1.setImage(bitmap);
-                            //handler.postDelayed(new ImageRunnable(file),1000);
-                            //layer2.setImage(new FileBitmapDecoderFactory(file));
-                            BitmapFactory.Options options = new BitmapFactory.Options();
-                            options.inJustDecodeBounds = true;
-                            Bitmap bitmap1 = BitmapFactory.decodeFile(path, options);
-                            int width=options.outWidth;
-                            int height=options.outHeight;
-                            layer2.setImage(ImageSource.uri(path).dimensions(width,height),ImageSource.bitmap(bitmap));
-                            layer2.setLayerType(View.LAYER_TYPE_HARDWARE, null);
-                            v.setVisibility(View.INVISIBLE);
-                            final ConstantState constantState=ConstantState.getInstance();
-                            if(constantState.getEditMode()) {
-                                layer2.setBackgroundColor(Color.WHITE);
-                            }else{
-                                layer2.setBackgroundColor(Color.BLACK);
-                            }
-                            layer2.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-
-                                    if(constantState.getEditMode()) {
-                                        constantState.setEditMode(false, path);
-                                        v.setBackgroundColor(Color.BLACK);
-                                    }else{
-                                        constantState.setEditMode(true,path);
-                                        v.setBackgroundColor(Color.WHITE);
-                                    }
-                                }
-                            });
-
-
-                        }
-
-                    }
-                }
-
-        );
-
-
-    }
-
 }

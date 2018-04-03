@@ -45,7 +45,6 @@ public class MyRunnable implements Runnable {
             if(isNeedGetTag(taggedList.get(i).getImageId())) {
                 Myparams myparams = new Myparams();
                 long time = System.currentTimeMillis() + (long) 3 * 60 * 1000;
-                Log.i("time", String.valueOf(time / 1000));
                 myparams.setTime_stamp(String.valueOf(time / 1000))
                         .setNonce_str(getRandomString(17))
                         .setSession_id("1579353187");
@@ -68,7 +67,6 @@ public class MyRunnable implements Runnable {
         }
     }
     public boolean isNeedGetTag(String id){
-        Log.i("info","picture is existed");
         return dbDao.selectTagById(id)==null;
     }
 

@@ -39,7 +39,6 @@ public class AlbumsAdapter extends BaseAdapter {
 		this.context=context;
 		this.listView=listView;
 		this.arrayList=arrayList;
-		Log.i("number",String.valueOf(arrayList.size()));
 		layoutInflater = LayoutInflater.from(context);
 
 
@@ -82,8 +81,6 @@ public class AlbumsAdapter extends BaseAdapter {
 		}
 		holder.count.setText(""+arrayList.get(position).getCount());
 		holder.name.setText(arrayList.get(position).getBucketName());
-
-        Log.i("path",arrayList.get(position).getImageList().get(0).getImagePath());
 		File file = new File(arrayList.get(position).getImageList().get(0).getImagePath()) ;
 		Glide
 				.with(context)

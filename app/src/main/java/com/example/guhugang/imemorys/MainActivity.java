@@ -1,22 +1,15 @@
 package com.example.guhugang.imemorys;
 
 import android.Manifest;
-import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -34,27 +27,21 @@ import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.example.guhugang.example.guhugang.uploadfileservice.ShowCategoryActivity;
-import com.example.guhugang.example.guhugang.uploadfileservice.UploadService;
 import com.example.guhugang.imemorys.com.example.guhugang.imemorys.fragment.AiFragment;
 import com.example.guhugang.imemorys.com.example.guhugang.imemorys.fragment.ConstantState;
 import com.example.guhugang.imemorys.com.example.guhugang.imemorys.fragment.FragmentFirst;
-import com.example.guhugang.imemorys.com.example.guhugang.imemorys.fragment.FragmentSelect;
 import com.example.guhugang.imemorys.com.example.guhugang.imemorys.fragment.PhotoFragment;
 import com.example.guhugang.imemorys.com.example.guhugang.imemorys.fragment.SearchFragment;
-import com.example.guhugang.imemorys.com.example.guhugang.imemorys.fragment.TagFragment;
 import com.example.guhugang.moreused.DeletePopupWindow;
 import com.example.guhugang.moreused.ShareDeleteView;
 import com.github.dfqin.grantor.PermissionListener;
 import com.github.dfqin.grantor.PermissionsUtil;
-import com.shizhefei.view.largeimage.LargeImageView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import baidumapsdk.demo.map.MarkerClusterDemo;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener{
     private LinearLayout mTabCamera;
@@ -262,7 +249,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case 2:
                 if (tab03 == null) {
-                    tab03 = new FragmentSelect();
+//                    tab03 = new FragmentSelect();
 				/*
 				 * 将Fragment添加到活动中，public abstract FragmentTransaction add (int containerViewId, Fragment fragment)
 				*containerViewId即为Optional identifier of the container this fragment is to be placed in. If 0, it will not be placed in a container.

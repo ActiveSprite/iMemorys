@@ -63,7 +63,6 @@ public class PhotoFragment extends Fragment implements OnClickListener{
 		mGridView = (GridView)getActivity().findViewById(R.id.asset_grid);
 		ViewCompat.setNestedScrollingEnabled(mGridView, true);
 		mScanner = new ImageScanner(getActivity());
-		Log.i("time","hh");
 
 		mScanner.scanImages(new ImageScanner.ScanCompleteCallBack() {
 			{
@@ -82,11 +81,6 @@ public class PhotoFragment extends Fragment implements OnClickListener{
 					String id=cursor.getString(cursor.getColumnIndex(Media._ID));
 					long times = cursor.getLong(cursor
 							.getColumnIndex(MediaStore.Images.Media.DATE_ADDED));
-
-//					int photoplaceIndex=cursor.getColumnIndexOrThrow(Media.DESCRIPTION );
-//					String place=cursor.getString(photoplaceIndex);
-//					//String datetime=convert(time);
-//					Log.i("time",path);
 					GridItem mGridItem = new GridItem(path, paserTimeToYM(times));
 					mGridItem.setId(id);
 					mGirdList.add(mGridItem);
@@ -97,8 +91,6 @@ public class PhotoFragment extends Fragment implements OnClickListener{
 				Comparator<GridItem> descComparator = Collections.reverseOrder(se);
 				Collections.sort(mGirdList, descComparator);
 
-
-				//Collections.sort(tmpList,descComparator);
 				for(ListIterator<GridItem> it = mGirdList.listIterator(); it.hasNext();){
 					GridItem mGridItem = it.next();
 					PhotoUpImageItem Item=new PhotoUpImageItem();

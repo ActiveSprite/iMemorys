@@ -45,7 +45,6 @@ public abstract class AlbumItemActivity<T extends PhotoUpImageBucket> extends Ap
         ViewCompat.setNestedScrollingEnabled(gridView,true);
         setData();
         if(photoUpImageBucket!=null) {
-            Log.i("蛤蟆皮","hhj");
             adapter = new AlbumItemAdapter(photoUpImageBucket.getImageList(), AlbumItemActivity.this);
             gridView.setAdapter(adapter);
         }

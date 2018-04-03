@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/BaiduMapsPicture/BaiduMapsPicture.iml" filepath="$PROJECT_DIR$/BaiduMapsPicture/BaiduMapsPicture.iml" />
       <module fileurl="file://$PROJECT_DIR$/TuSDKUIDefault/TuSDKUIDefault.iml" filepath="$PROJECT_DIR$/TuSDKUIDefault/TuSDKUIDefault.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/circlemenu/circlemenu.iml" filepath="$PROJECT_DIR$/circlemenu/circlemenu.iml" />
       <module fileurl="file://$PROJECT_DIR$/iMemorys.iml" filepath="$PROJECT_DIR$/iMemorys.iml" />
     </modules>
   </component>

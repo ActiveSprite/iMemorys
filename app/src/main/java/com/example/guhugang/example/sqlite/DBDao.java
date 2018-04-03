@@ -67,6 +67,8 @@ public class DBDao {
             db.insert(imagetag_data, null, values);
         } catch (SQLException e) {
 
+        }finally {
+            db.close();
         }
 
     }
@@ -83,12 +85,13 @@ public class DBDao {
                 String tag_path=cursor.getString(cursor.getColumnIndex(this.tagged_path));
                 String img_tag=cursor.getString(cursor.getColumnIndex(this.image_tag));
                 TaggedImageItem tagImageItem=new TaggedImageItem();
-                Log.i("sqlite_id",pid);
                 tagImageItem.setImageId(pid);
                 tagImageItem.setImagePath(tag_path);
                 tagImageItem.setTag(img_tag);
                 Taglist.add(tagImageItem);
             }while(cursor.moveToNext());
+            cursor.close();
+            db.close();
             return Taglist;
         }else{
             return null;}
@@ -107,13 +110,14 @@ public class DBDao {
                 String img_tag=cursor.getString(cursor.getColumnIndex(this.image_tag));
                 String location=cursor.getString(cursor.getColumnIndex(this.location));
                 TaggedImageItem tagImageItem=new TaggedImageItem();
-                Log.i("sqlite_id",pid);
                 tagImageItem.setImageId(pid);
                 tagImageItem.setImagePath(tag_path);
                 tagImageItem.setTag(img_tag);
                 tagImageItem.setLocation(location);
                 Taglist.add(tagImageItem);
             }while(cursor.moveToNext());
+            cursor.close();
+            db.close();
             return Taglist;
         }else{
             return null;}
@@ -131,7 +135,6 @@ public class DBDao {
                 String img_tag=cursor.getString(cursor.getColumnIndex(this.image_tag));
                 String location=cursor.getString(cursor.getColumnIndex(this.location));
                 TaggedImageItem tagImageItem=new TaggedImageItem();
-                Log.i("sqlite_id",pid);
                 tagImageItem.setImageId(pid);
                 tagImageItem.setImagePath(tag_path);
                 tagImageItem.setTag(img_tag);
@@ -139,6 +142,8 @@ public class DBDao {
                 Taglist.add(tagImageItem);
 
             }while(cursor.moveToNext());
+            cursor.close();
+            db.close();
             return Taglist;
         }else{
             return null;}
@@ -157,6 +162,7 @@ public class DBDao {
         String[] s=new String[]{path};
         //db.execSQL("delete from facecategory where category=?",new Object[]{category});
         int flag=db.delete(imagetag_data, tagged_path+"=?", s);
+        db.close();
         return flag>0;
     }
 
@@ -169,6 +175,8 @@ public class DBDao {
             db.insert(facetable, null, values);
         } catch (SQLException e) {
 
+        }finally {
+            db.close();
         }
     }
     public void addfacetoken(FacePicture fp){
@@ -188,6 +196,8 @@ public class DBDao {
             db.insert(facetokentable, null, values);
         } catch (SQLException e) {
 
+        } finally {
+            db.close();
         }
     }
 
@@ -196,12 +206,13 @@ public class DBDao {
             db = helper.getWritableDatabase();
             ContentValues values = new ContentValues();
             values.put(pid, collectImageItem.getImageId());
-            Log.i("pid_tag",collectImageItem.getImageId());
             values.put(src_path, collectImageItem.getImagePath());
             values.put(dest_path,collectImageItem.getDest_path());
             db.insert(collection, null, values);
         }catch (SQLException e) {
 
+        }finally {
+            db.close();
         }
     }
     public ArrayList<CollectImageItem> selectCollectionItem(){
@@ -214,12 +225,13 @@ public class DBDao {
                 String src_path=cursor.getString(cursor.getColumnIndex(this.src_path));
                 String dest_path=cursor.getString(cursor.getColumnIndex(this.dest_path));
                 CollectImageItem collectImageItem=new CollectImageItem();
-                Log.i("sqlite_id",pid);
                 collectImageItem.setImageId(pid);
                 collectImageItem.setImagePath(src_path);
                 collectImageItem.setDest_path(dest_path);
                 collectionlist.add(collectImageItem);
             }while(cursor.moveToNext());
+            cursor.close();
+            db.close();
             return collectionlist;
         }else{
             return null;}
@@ -238,6 +250,8 @@ public class DBDao {
                 fp.setImagePath(pt);
                 fplist.add(fp);
             }while(cursor.moveToNext());
+            cursor.close();
+            db.close();
             return fplist;
         }else{
             return null;}
@@ -267,6 +281,8 @@ public class DBDao {
 
                 fplist.add(fp);
             }while(cursor.moveToNext());
+            cursor.close();
+            db.close();
             return fplist;
         }else{
             return null;}
@@ -295,6 +311,7 @@ public class DBDao {
                 fp.setImagePath(pt);
                 fplist.add(fp);
             }while(cursor.moveToNext());
+            cursor.close();
             return fplist;
         }else{
             return null;}
@@ -317,6 +334,7 @@ public class DBDao {
                 fp.setCategory(category);
                 fplist.add(fp);
             }while(cursor.moveToNext());
+            cursor.close();
             return fplist;
         }else{
             return null;}

@@ -110,7 +110,6 @@ public class PhotoUpAlbumHelper extends AsyncTask<Object, Object, Object>{
 	
 	String getOriginalImagePath(String image_id) {
 		String path = null;
-		Log.i(TAG, "---(^o^)----" + image_id);
 		String[] projection = { Media._ID, Media.DATA };
 		Cursor cursor = cr.query(Media.EXTERNAL_CONTENT_URI, projection,
 				Media._ID + "=" + image_id, null, Media.DATE_MODIFIED+" desc");

@@ -35,8 +35,6 @@ public class AlbumItemAdapter<T extends PhotoUpImageItem> extends BaseAdapter {
 	 private int selectPic = -1;
 	 private Context mcontext;
 	 private Toast mToast;
-//	 ZoomTutorial mZoomTutorial;
-//	 ViewPager expandedView;
 	public AlbumItemAdapter(List<T> list,Context context){
 		this.list = list;
 		this.mcontext=context;
@@ -59,18 +57,11 @@ public class AlbumItemAdapter<T extends PhotoUpImageItem> extends BaseAdapter {
 	public long getItemId(int position) {
 		return position;
 	}
-	
-	
-	
-	
+
 	public void setNotifyDataChange(int id) {  
         selectPic = id;  
         super.notifyDataSetChanged();  
-    }  
-	
-	
-	
-
+    }
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		final Holder holder;
@@ -84,8 +75,6 @@ public class AlbumItemAdapter<T extends PhotoUpImageItem> extends BaseAdapter {
 		}
 		File file = new File(list.get(position).getImagePath()) ;
 
-		Log.i("position",String.valueOf(position));
-		Log.i("paths",list.get(position).getImagePath());
 		Glide
 	    .with(mcontext)
 	    .load(file)
@@ -97,7 +86,6 @@ public class AlbumItemAdapter<T extends PhotoUpImageItem> extends BaseAdapter {
 				intent.putExtra("imagelist",(ArrayList)list);
 				intent.putExtra("position", position);
 				mcontext.startActivity(intent);
-	//			((Activity) mcontext).overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
 			}
 		});
 

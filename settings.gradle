@@ -1,1 +1,1 @@
-include ':app', ':BaiduMapsPicture', ':TuSDKUIDefault', ':circlemenu'
+include ':app', ':TuSDKUIDefault'

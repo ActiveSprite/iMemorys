@@ -70,8 +70,6 @@ public class FragmentFirst extends Fragment{
 				intent.putExtra("imagelist", list.get(position));
 				intent.putExtra("bucketname",list.get(position).getBucketName());
 				startActivity(intent);
-//				(getActivity()).overridePendingTransition(0, 0);
-//				(getActivity()).overridePendingTransition(R.anim.activity_in, R.anim.activity_out);
 			}
 		});
 	}

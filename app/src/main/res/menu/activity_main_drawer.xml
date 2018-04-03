@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_face"
+            android:icon="@drawable/ic_face"
+            android:title="面孔图册" />
+        <item
+            android:id="@+id/nav_reserve"
+            android:title="收藏夹"
+            android:icon="@drawable/ic_favorite"/>
+        <item
+            android:id="@+id/nav_searchpic"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="以图搜图" />
+        <item
+            android:id="@+id/nav_search"
+            android:icon="@drawable/ic_find"
+            android:title="扫描" />
+        <item
+            android:id="@+id/nav_manage"
+            android:icon="@drawable/ic_settings"
+            android:title="设置" />
+    </group>
+
+    <item android:title="其他">
+        <menu>
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/ic_about"
+                android:title="关于app" />
+            <item
+                android:id="@+id/nav_error"
+                android:icon="@drawable/ic_error_black"
+                android:title="错误反馈" />
+        </menu>
+    </item>
+
+</menu>

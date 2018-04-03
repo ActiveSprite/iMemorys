@@ -135,16 +135,16 @@ public abstract class GalleryActivity extends AppCompatActivity implements View.
             adapter=new MediaAdapter(getSupportFragmentManager(),imglist);
             viewpager.setOffscreenPageLimit(0);
             viewpager.setLayerType(View.LAYER_TYPE_HARDWARE, null);
-            viewpager.setPageTransformer(true, new ViewPager.PageTransformer() {
-
-                @Override
-                public void transformPage(View page, float position) {
-                    //rollingPage(page,position);//调用翻页效果
-                    imitateQQ(page,position);
-                    //raised3D(page,position);
-                    //sink3D(page,position);
-                }
-            });
+//            viewpager.setPageTransformer(true, new ViewPager.PageTransformer() {
+//
+//                @Override
+//                public void transformPage(View page, float position) {
+//                    //rollingPage(page,position);//调用翻页效果
+//                    imitateQQ(page,position);
+//                    //raised3D(page,position);
+//                    //sink3D(page,position);
+//                }
+//            });
             viewpager.setAdapter(adapter);
             viewpager.setCurrentItem(position);
             //viewpager.setPageMargin((int)getResources().getDimensionPixelOffset(5));
@@ -245,11 +245,6 @@ public abstract class GalleryActivity extends AppCompatActivity implements View.
         dbDao.addCollection(collectImageItem);
         Toast.makeText(this,"收藏成功",Toast.LENGTH_SHORT).show();
         ArrayList<CollectImageItem> list=dbDao.selectCollectionItem();
-        if(list!=null){
-            for(int i=0;i<list.size();i++){
-                Log.i("id",list.get(i).getImageId());
-            }
-        }
 
     }
 
