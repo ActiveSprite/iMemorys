@@ -1,78 +1,56 @@
 package com.example.guhugang.imemorys;
 
-import android.Manifest;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
+
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
-import android.util.Log;
+
 import android.view.Gravity;
-import android.view.LayoutInflater;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.example.guhugang.example.guhugang.uploadfileservice.ShowCategoryActivity;
 import com.example.guhugang.imemorys.com.example.guhugang.imemorys.fragment.AiFragment;
 import com.example.guhugang.imemorys.com.example.guhugang.imemorys.fragment.ConstantState;
 import com.example.guhugang.imemorys.com.example.guhugang.imemorys.fragment.FragmentFirst;
 import com.example.guhugang.imemorys.com.example.guhugang.imemorys.fragment.PhotoFragment;
-import com.example.guhugang.imemorys.com.example.guhugang.imemorys.fragment.SearchFragment;
 import com.example.guhugang.moreused.DeletePopupWindow;
 import com.example.guhugang.moreused.ShareDeleteView;
-import com.github.dfqin.grantor.PermissionListener;
-import com.github.dfqin.grantor.PermissionsUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener{
-    private LinearLayout mTabCamera;
-    private LinearLayout mTabPhoto;
-    private LinearLayout mTabSetting;
-    //底部4个导航控件中的图片按钮
-    private ImageButton mImgWeixin;
-    private ImageButton mImgFrd;
-    private ImageButton mImgAddress;
-    private ImageButton mImgSetting;
-    private ImageButton search;
+
     private Fragment tab01;
     private Fragment tab02;
 
     private Fragment tab03;
-    private SearchFragment searchFragment;
+
 
     private Toolbar toolbar;
 
     private DeletePopupWindow deletePopupWindow;
     private ShareDeleteView shareDeleteView;
-    SearchView searchView;
 
-    private int states=0;
 
     private List<String> titles;
     private List<Fragment> fragments;
     String path="/storage/emulated/0/DCIM/P60830-140022.jpg";
-
-    private boolean READ_EXTERNAL_STORAGE=false;
 
     ViewPager viewPager;
     BottomNavigationView navigation;
