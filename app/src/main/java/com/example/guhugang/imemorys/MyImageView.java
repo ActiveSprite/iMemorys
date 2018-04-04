@@ -22,8 +22,8 @@ public class MyImageView extends ImageView {
 
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-		
+		super.onMeasure(widthMeasureSpec, widthMeasureSpec);
+
 
 		if(onMeasureListener != null){
 			onMeasureListener.onMeasureSize(getMeasuredWidth(), getMeasuredHeight());

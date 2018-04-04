@@ -21,7 +21,7 @@ public abstract class AlbumItemActivity<T extends PhotoUpImageBucket> extends Ap
     public T photoUpImageBucket;
     private AlbumItemAdapter adapter;
     public Toolbar toolbar;
-    public ImageView toolbar_bg;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +29,7 @@ public abstract class AlbumItemActivity<T extends PhotoUpImageBucket> extends Ap
         getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         setContentView(R.layout.album_item_images);
         toolbar = (Toolbar) findViewById(R.id.toolbar_file);
-        toolbar_bg=(ImageView)findViewById(R.id.toolbar_bg);
+
         toolbar.setTitle("文件夹");
         setToolbarTitle();
         toolbar.setTitleTextAppearance(this,R.style.Theme_ToolBar_Base_Subtitle);

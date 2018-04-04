@@ -32,7 +32,11 @@ public abstract class CategoryActivity<A> extends AppCompatActivity {
          super.onCreate(savedInstanceState);
          setContentView(R.layout.category_activity);
           initView();
-          loadData();
+
+    }
+    public void onStart(){
+        super.onStart();
+        loadData();
     }
     public void initView(){
         toolbar = (Toolbar) findViewById(R.id.face_ui_toolbar);

@@ -17,28 +17,15 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:layout_collapseMode="pin"/>
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/toolbar_bg"
-        android:visibility="gone"
-        />
-
     <GridView
         android:id="@+id/album_item_gridv"
         android:layout_width="match_parent"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:columnWidth="70dip"
-        android:layoutAnimation="@anim/gride_animation"
-        android:numColumns="auto_fit"
-        android:horizontalSpacing="3dip"
-        android:verticalSpacing="3dip"
-        android:layout_centerHorizontal="true"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        />
+        android:layout_height="fill_parent"
+        android:layout_margin="1dp"
+        android:horizontalSpacing="2dp"
+        android:numColumns="3"
+        android:scrollbars="none"
+        android:verticalSpacing="2dp" />
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>
 

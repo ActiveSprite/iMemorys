@@ -82,10 +82,11 @@ public class AlbumItemAdapter<T extends PhotoUpImageItem> extends BaseAdapter {
 		holder.imageView.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(mcontext, ShowGalleryActivity.class);
-				intent.putExtra("imagelist",(ArrayList)list);
-				intent.putExtra("position", position);
-				mcontext.startActivity(intent);
+//				Intent intent = new Intent(mcontext, ShowGalleryActivity.class);
+//				intent.putExtra("imagelist",(ArrayList)list);
+//				intent.putExtra("position", position);
+//				mcontext.startActivity(intent);
+				ShowGalleryActivity.startWithElement((Activity)mcontext,(ArrayList<PhotoUpImageItem>)list,position,v);
 			}
 		});
 

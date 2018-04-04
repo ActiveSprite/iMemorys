@@ -23,11 +23,6 @@ public class ShowFileItemActivity extends com.example.guhugang.example.guhugang.
         photoUpImageBucket = (PhotoUpImageBucket<PhotoUpImageItem>) intent.getSerializableExtra("imagelist");
         PhotoUpImageItem item=(PhotoUpImageItem)photoUpImageBucket.getImageList().get(0);
         File file=new File(item.getImagePath());
-        Glide
-                .with(this)
-                .load(file)
-                .bitmapTransform(new BlurTransformation(this, 25), new CenterCrop(this))
-                .into(toolbar_bg);
 
     }
 
