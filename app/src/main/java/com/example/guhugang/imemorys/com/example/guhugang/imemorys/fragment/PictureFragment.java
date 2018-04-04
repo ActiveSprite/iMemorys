@@ -114,10 +114,8 @@ public class PictureFragment extends Fragment{
 
                             if(constantState.getEditMode()) {
                                 constantState.setEditMode(false, path);
-                                v.setBackgroundColor(Color.BLACK);
                             }else{
                                 constantState.setEditMode(true,path);
-                                v.setBackgroundColor(Color.WHITE);
                             }
                         }
                     });

@@ -4,45 +4,47 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/app_bar"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:orientation="vertical"
+        android:layout_height="match_parent">
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:background="@color/colorActionMode"
         android:layout_height="?attr/actionBarSize"
         app:layout_scrollFlags="scroll|enterAlways"
-        app:popupTheme="@style/AppTheme.PopupOverlay"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:layout_collapseMode="pin"/>
-        <android.support.design.widget.TabLayout
-            android:id="@+id/id_tab"
-            android:layout_width="match_parent"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_gravity="bottom"
-            app:tabIndicatorColor = "#FFFFFF"
-            app:tabTextColor = "#FFFFFF"
-            app:tabSelectedTextColor = "#FFFFFF" />
-    </android.support.design.widget.AppBarLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:orientation="vertical"
+          android:layout_height="match_parent">
         <android.support.v4.view.ViewPager
             android:id="@+id/view_page"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
+            android:layout_height="0dp"
+            android:layout_weight="1"
             >
         </android.support.v4.view.ViewPager>
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="0dp"
+            android:layout_marginStart="0dp"
+            android:background="?android:attr/windowBackground"
+            android:layout_gravity="bottom"
+            app:menu="@menu/navigation" />
+      </LinearLayout>
     </FrameLayout>
+    </LinearLayout>
     <com.example.guhugang.moreused.ShareDeleteView
         android:id="@+id/s_d_view"
         android:layout_height="wrap_content"

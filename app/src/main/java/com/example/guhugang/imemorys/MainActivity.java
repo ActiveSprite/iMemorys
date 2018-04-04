@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -74,12 +75,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean READ_EXTERNAL_STORAGE=false;
 
     ViewPager viewPager;
-    TabLayout tabLayout;
-    private int[] tabIcons = {
-            R.drawable.ic_camera,
-            R.drawable.ic_perm_media,
-            R.drawable.ic_book
+    BottomNavigationView navigation;
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
+                    setItem(0);
+                    return true;
+                case R.id.navigation_dashboard:
+                    setItem(1);
+                    return true;
+                case R.id.navigation_notifications:
+                    setItem(2);
+                    return true;
+            }
+            return false;
+        }
     };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,13 +118,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction transaction = fm.beginTransaction();
-        requestPermission();
         initView();
         initEvents();
         initValue();
+
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -115,21 +130,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }).start();
 
-//        searchFragment = new SearchFragment();
-				/*
-				 * 将Fragment添加到活动中，public abstract FragmentTransaction add (int containerViewId, Fragment fragment)
-				*containerViewId即为Optional identifier of the container this fragment is to be placed in. If 0, it will not be placed in a container.
-				 * */
-
-
-//        transaction.add(R.id.id_content, searchFragment);
           this.startService(new Intent(this,ImageTagService.class));
-//        transaction.commit();
-
-
-//        setSelect(0);
-
-        //startService(new Intent(MainActivity.this,UploadService.class));
     }
     private void initEvents() {
 
@@ -145,8 +146,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     shareDeleteView.setVisibility(View.INVISIBLE);
             }
         });
-
-
     }
 
     private void initView() {
@@ -154,42 +153,48 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         shareDeleteView=(ShareDeleteView)findViewById(R.id.s_d_view);
         deletePopupWindow=new DeletePopupWindow(this,this);
         viewPager = (ViewPager) findViewById(R.id.view_page);
-        tabLayout = (TabLayout) findViewById(R.id.id_tab);
         tab01=PhotoFragment.newInstance();
         tab02=FragmentFirst.newInstance();
         tab03= AiFragment.newInstance();
-
-    }
-    private void initValue() {
-        fragments = new ArrayList<>();
+        fragments=new ArrayList<>();
         fragments.add(tab01);
         fragments.add(tab02);
         fragments.add(tab03);
-
-        titles = new ArrayList<>();
-        titles.add("One");
-        titles.add("Two");
-        titles.add("Three");
-
+        navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+    }
+    private void initValue() {
         FragmentViewPagerAdapter adapter = new FragmentViewPagerAdapter(getSupportFragmentManager(), fragments, titles);
         viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(adapter);
-        tabLayout.setupWithViewPager(viewPager);
-        setupTabIcons();
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                switch (position){
+                    case 0:
+                        navigation.setSelectedItemId(R.id.navigation_home);
+                        break;
+                    case 1:
+                        navigation.setSelectedItemId(R.id.navigation_dashboard);
+                        break;
+                    case 2:
+                        navigation.setSelectedItemId(R.id.navigation_notifications);
+                        break;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
-    private void setupTabIcons() {
-        tabLayout.getTabAt(0).setCustomView(getTabView(0));
-        tabLayout.getTabAt(1).setCustomView(getTabView(1));
-        tabLayout.getTabAt(2).setCustomView(getTabView(2));
-    }
-
-    public View getTabView(int position) {
-        View view = LayoutInflater.from(this).inflate(R.layout.item_tab, null);
-        ImageView img_title = (ImageView) view.findViewById(R.id.img_title);
-        img_title.setImageResource(tabIcons[position]);
-        return view;
-    }
 
     @Override
     public void onClick(View v) {
@@ -198,113 +203,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
             case R.id.delete_bt:
-                //setSelect(3);
+
                 deletePopupWindow.showAtLocation(MainActivity.this.findViewById(R.id.container),
                         Gravity.BOTTOM| Gravity.CENTER_HORIZONTAL, 0, 0);
                 break;
             case R.id.action_search:
 
-//		case R.id.buttontime:
-//			setSelect(4);
-//			break;
             default:
 
                 break;
         }
     }
-    private void setSelect(int i) {
-        resetImg();
-
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction transaction = fm.beginTransaction();//创建一个事务
-        hideFragment(transaction);//我们先把所有的Fragment隐藏了，然后下面再开始处理具体要显示的Fragment
-        switch (i) {
-            case 0:
-                if (tab01 == null) {
-                    tab01 = new PhotoFragment();
-				/*
-				 * 将Fragment添加到活动中，public abstract FragmentTransaction add (int containerViewId, Fragment fragment)
-				*containerViewId即为Optional identifier of the container this fragment is to be placed in. If 0, it will not be placed in a container.
-				 * */
- //                   transaction.add(R.id.id_content, tab01);//将微信聊天界面的Fragment添加到Activity中
-                }else {
-                    transaction.show(tab01);
-                }
-                mImgWeixin.setImageResource(R.drawable.cameral_pressed);
-                states=0;
-                break;
-            case 1:
-                if (tab02 == null) {
-                    tab02 = new FragmentFirst();
-				/*
-				 * 将Fragment添加到活动中，public abstract FragmentTransaction add (int containerViewId, Fragment fragment)
-				*containerViewId即为Optional identifier of the container this fragment is to be placed in. If 0, it will not be placed in a container.
-				 * */
- //                   transaction.add(R.id.id_content, tab02);//将微信聊天界面的Fragment添加到Activity中
-                }else {
-                    transaction.show(tab02);
-                }
-                mImgFrd.setImageResource(R.drawable.picture_pressed);
-                states=1;
-                break;
-            case 2:
-                if (tab03 == null) {
-//                    tab03 = new FragmentSelect();
-				/*
-				 * 将Fragment添加到活动中，public abstract FragmentTransaction add (int containerViewId, Fragment fragment)
-				*containerViewId即为Optional identifier of the container this fragment is to be placed in. If 0, it will not be placed in a container.
-				 * */
- //                   transaction.add(R.id.id_content, tab03);//将微信聊天界面的Fragment添加到Activity中
-                }else {
-                    transaction.show(tab03);
-                }
-                mImgAddress.setImageResource(R.drawable.more_pressed);
-                states=2;
-                break;
-            case 3:
-                if (searchFragment == null) {
-                    searchFragment = new SearchFragment();
-				/*
-				 * 将Fragment添加到活动中，public abstract FragmentTransaction add (int containerViewId, Fragment fragment)
-				*containerViewId即为Optional identifier of the container this fragment is to be placed in. If 0, it will not be placed in a container.
-				 * */
-//                    transaction.add(R.id.id_content, searchFragment);//将微信聊天界面的Fragment添加到Activity中
-                }else {
-                    transaction.show(searchFragment);
-                }
-
-                break;
-            default:
-                break;
-        }
-        transaction.commit();//提交事务
+    private void setItem(int i){
+        viewPager.setCurrentItem(i);
     }
 
-    /*
-     * 隐藏所有的Fragment
-     * */
-    private void hideFragment(FragmentTransaction transaction) {
-        if (tab01 != null) {
-            transaction.hide(tab01);
-        }
-        if (tab02 != null) {
-            transaction.hide(tab02);
-        }
-        if (tab03 != null) {
-            transaction.hide(tab03);
-        }
-        if(searchFragment!=null){
-            transaction.hide(searchFragment);
-        }
 
-    }
-
-    private void resetImg() {
-        mImgWeixin.setImageResource(R.drawable.cameral);
-        mImgFrd.setImageResource(R.drawable.picture);
-        mImgAddress.setImageResource(R.drawable.more);
-        //mImgSetting.setImageResource(R.drawable.tab_settings_normal);
-    }
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.main_toolbar,menu);
         return super.onCreateOptionsMenu(menu);
@@ -316,37 +230,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 overridePendingTransition(0,0);
                 break;
-
         }
         return super.onOptionsItemSelected(item);
-    }
-    public void handleSearchEvent(){
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            // 当点击搜索按钮时触发该方法
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-
-                return false;
-            }
-
-            // 当搜索内容改变时触发该方法
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                Log.i("querry",newText);
- //               setSelect(3);
-                if (!TextUtils.isEmpty(newText)){
-                    if(searchFragment!=null){
-
- //                       searchFragment.OnTagChanged(newText);
-                    }
-
-                }else{
- //                   setSelect(states);
-                }
-                return false;
-            }
-        });
     }
 
     @Override
@@ -369,27 +254,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else if (id == R.id.nav_error) {
 
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-    public void requestPermission(){
-        if (PermissionsUtil.hasPermission(this, Manifest.permission.CAMERA)) {
-            //有访问摄像头的权限
-        } else {
-            PermissionsUtil.requestPermission(this, new PermissionListener() {
-                @Override
-                public void permissionGranted(@NonNull String[] permissions) {
-                    READ_EXTERNAL_STORAGE=true;
-                }
-
-
-                @Override
-                public void permissionDenied(@NonNull String[] permissions) {
-
-                }
-            }, new String[]{Manifest.permission.CAMERA});
-        }
     }
 }
