@@ -42,7 +42,6 @@ public abstract class AlbumItemActivity<T extends PhotoUpImageBucket> extends Ap
     }
     private void init(){
         gridView = (GridView) findViewById(R.id.album_item_gridv);
-        ViewCompat.setNestedScrollingEnabled(gridView,true);
         setData();
         if(photoUpImageBucket!=null) {
             adapter = new AlbumItemAdapter(photoUpImageBucket.getImageList(), AlbumItemActivity.this);

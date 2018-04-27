@@ -21,9 +21,6 @@ public class ShowFileItemActivity extends com.example.guhugang.example.guhugang.
     public void setData() {
         Intent intent = getIntent();
         photoUpImageBucket = (PhotoUpImageBucket<PhotoUpImageItem>) intent.getSerializableExtra("imagelist");
-        PhotoUpImageItem item=(PhotoUpImageItem)photoUpImageBucket.getImageList().get(0);
-        File file=new File(item.getImagePath());
-
     }
 
     @Override

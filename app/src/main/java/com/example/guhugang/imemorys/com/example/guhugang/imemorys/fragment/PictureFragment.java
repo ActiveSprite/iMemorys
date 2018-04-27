@@ -2,7 +2,9 @@ package com.example.guhugang.imemorys.com.example.guhugang.imemorys.fragment;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -95,8 +97,11 @@ public class PictureFragment extends Fragment{
     }
 
     public void loadBitmap(){
-        final File file = new File(path) ;
-
+        final Drawable baseDrawable = getResources().getDrawable(R.drawable.img_bg);
+        Rect rect=ImageResizer.getImageRect(path);
+        baseDrawable.setBounds(rect);
+        layer1.setImageDrawable(baseDrawable);
+        final File file = new File(path);
         Glide.with(getActivity()).load(file).listener(new RequestListener<File, GlideDrawable>() {
             @Override
             public boolean onException(Exception e, File model, Target<GlideDrawable> target, boolean isFirstResource) {
@@ -105,8 +110,8 @@ public class PictureFragment extends Fragment{
 
             @Override
             public boolean onResourceReady(GlideDrawable resource, File model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                layer1.setImage((Drawable)resource);
-                layer1.setImage(new FileBitmapDecoderFactory(file),(Drawable)resource);
+                layer1.setImage(resource);
+                layer1.setImage(new FileBitmapDecoderFactory(file),resource);
                 final ConstantState constantState = ConstantState.getInstance();
                 layer1.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -119,8 +124,6 @@ public class PictureFragment extends Fragment{
                             }
                         }
                     });
-
-
                 return false;
             }
         }).into(v);

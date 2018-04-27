@@ -3,8 +3,10 @@ package com.example.guhugang.moreused;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Rect;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 /**
  * Created by GuHuGang on 2017/10/21.
@@ -13,6 +15,15 @@ import android.os.Message;
 public class ImageResizer {
     public ImageResizer(){
 
+    }
+    public static Rect getImageRect(String path){
+        Rect rect=new Rect();
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(path, options);
+        rect.set(0,0,options.outWidth,options.outHeight);
+//        Log.i("width",String.valueOf(options.outWidth));
+        return  rect;
     }
     public Bitmap getBitmap(String path){
 

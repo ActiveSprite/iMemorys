@@ -139,8 +139,8 @@ public abstract class GalleryActivity extends AppCompatActivity implements View.
         }
         if(imglist!=null){
             adapter=new MediaAdapter(getSupportFragmentManager(),imglist);
-            viewpager.setOffscreenPageLimit(0);
-            viewpager.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+//            viewpager.setOffscreenPageLimit(0);
+//            viewpager.setLayerType(View.LAYER_TYPE_HARDWARE, null);
 //            viewpager.setPageTransformer(true, new ViewPager.PageTransformer() {
 //
 //                @Override
@@ -153,7 +153,7 @@ public abstract class GalleryActivity extends AppCompatActivity implements View.
 //            });
             viewpager.setAdapter(adapter);
             viewpager.setCurrentItem(position);
-            //viewpager.setPageMargin((int)getResources().getDimensionPixelOffset(5));
+            viewpager.setPageMargin((int)getResources().getDimensionPixelOffset(R.dimen.viewpager_margin));
         }
         share=(LinearLayout)findViewById(R.id.share);
     }

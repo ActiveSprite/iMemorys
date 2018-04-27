@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }).start();
 
-          this.startService(new Intent(this,ImageTagService.class));
+//          this.startService(new Intent(this,ImageTagService.class));
     }
     private void initEvents() {
 
@@ -145,6 +145,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         FragmentViewPagerAdapter adapter = new FragmentViewPagerAdapter(getSupportFragmentManager(), fragments, titles);
         viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(adapter);
+        viewPager.setPageTransformer(true, new ViewPager.PageTransformer() {
+
+               @Override
+                public void transformPage(View page, float position) {
+                    //rollingPage(page,position);//调用翻页效果
+                      imitateQQ(page,position);
+                    //raised3D(page,position);
+                    //sink3D(page,position);
+                }
+            });
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -173,7 +183,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
+    public void raised3D(View view,float position){
+        if(position>=-1&&position<=1){
+            view.setPivotX(position<0?view.getWidth():0);//设置要旋转的Y轴的位置
+            view.setRotationY(90*position);//开始设置属性动画值
+        }
+    }
+    public void imitateQQ(View view,float position){
+        if(position>=-1&&position<=1){
+            view.setPivotX(position>0?0:view.getWidth()/2);
+            //view.setPivotY(view.getHeight()/2);
+            view.setScaleX((float)((1-Math.abs(position)<0.5)?0.5:(1-Math.abs(position))));
+            view.setScaleY((float)((1-Math.abs(position)<0.5)?0.5:(1-Math.abs(position))));
+        }
+    }
+    public void rollingPage(View view,float position){
+        if(position>=-1&&position<=1){
+            view.setPivotX(0);
+            if(position<0){
+                view.setTranslationX(-position*view.getWidth());
+                view.setRotationY(90*position);
+                view.setScaleX(1-Math.abs(position));
+            }
+            else{
+                view.setTranslationX(-position*view.getWidth());
+            }
 
+        }
+    }
     @Override
     public void onClick(View v) {
 
