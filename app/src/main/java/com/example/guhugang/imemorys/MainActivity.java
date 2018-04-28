@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                @Override
                 public void transformPage(View page, float position) {
                     //rollingPage(page,position);//调用翻页效果
-                      imitateQQ(page,position);
+                     imitateQQ(page,position);
                     //raised3D(page,position);
                     //sink3D(page,position);
                 }
@@ -211,6 +211,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
     }
+    public void sink3D(View view,float position){
+        if(position>=-1&&position<=1){
+            view.setPivotX(position<0?view.getWidth():0);
+            view.setRotationY(-90*position);
+        }
+    }
+
     @Override
     public void onClick(View v) {
 

@@ -38,6 +38,7 @@ public class FindTagTask extends AsyncTask<String,Void,Object> {
     boolean hasBuildImagesBucketList = false;
     void buildImagesBucketList(String tag){
         taggedImageItemList=dbDao.selectTagByNull();
+        if(taggedImageItemList==null)return;
         for(int i=0;i<taggedImageItemList.size();i++){
             if(!fileIsExists(taggedImageItemList.get(i).getImagePath())){
                 dbDao.deleteAll(taggedImageItemList.get(i).getImagePath());

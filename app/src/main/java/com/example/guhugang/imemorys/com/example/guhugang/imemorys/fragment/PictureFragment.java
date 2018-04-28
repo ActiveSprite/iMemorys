@@ -110,8 +110,10 @@ public class PictureFragment extends Fragment{
 
             @Override
             public boolean onResourceReady(GlideDrawable resource, File model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                layer1.setImage(resource);
-                layer1.setImage(new FileBitmapDecoderFactory(file),resource);
+                layer1.setImageDrawable(resource);
+//                if(!ImageResizer.getImageType(path).equals("image/gif")) {
+                    layer1.setImage(new FileBitmapDecoderFactory(file), resource);
+//               }
                 final ConstantState constantState = ConstantState.getInstance();
                 layer1.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -127,6 +129,6 @@ public class PictureFragment extends Fragment{
                 return false;
             }
         }).into(v);
-
+//        layer1.setImage(new FileBitmapDecoderFactory(file));
     }
 }

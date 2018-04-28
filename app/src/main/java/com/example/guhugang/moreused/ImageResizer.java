@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Rect;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 
 /**
@@ -24,6 +25,16 @@ public class ImageResizer {
         rect.set(0,0,options.outWidth,options.outHeight);
 //        Log.i("width",String.valueOf(options.outWidth));
         return  rect;
+    }
+    public static String getImageType(String path){
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(path, options);
+        String type = options.outMimeType;
+        if (TextUtils.isEmpty(type)) {
+            type = "未能识别的图片";
+        }
+        return type;
     }
     public Bitmap getBitmap(String path){
 
