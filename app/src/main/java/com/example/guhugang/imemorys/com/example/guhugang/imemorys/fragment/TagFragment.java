@@ -25,7 +25,6 @@ public class TagFragment extends Fragment {
     RecyclerView recyclerView;
     View rootView;
     HomeAdapter homeAdapter;
-    RelativeLayout mRelativeLayout;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if(rootView==null){
@@ -44,9 +43,24 @@ public class TagFragment extends Fragment {
         initView();;
         loadData();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        FindTagTask tagTask=new FindTagTask(getActivity());
+        tagTask.setGetAlbumList(new FindTagTask.GetAlbumList() {
+            @Override
+            public void getAlbumList(List<PhotoUpImageBucket<TaggedImageItem>> list) {
+                if(list!=null){
+                    homeAdapter.changeData(list);
+                }
+            }
+        });
+        tagTask.execute("string");
+    }
+
     public void initView(){
         recyclerView=(RecyclerView)getActivity().findViewById(R.id.tag_list);
-        mRelativeLayout=(RelativeLayout)getActivity().findViewById(R.id.id_bg_layout);
     }
     public void loadData(){
         FindTagTask tagTask=new FindTagTask(getActivity());
@@ -57,15 +71,10 @@ public class TagFragment extends Fragment {
                     homeAdapter=new HomeAdapter(getActivity(),list,false);
                     recyclerView.setLayoutManager(new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL));
                     recyclerView.setAdapter(homeAdapter);
-                    mRelativeLayout.setVisibility(View.INVISIBLE);
-
                 }
             }
         });
-        tagTask.execute("string");
-
-
-
+       tagTask.execute("string");
     }
     public static TagFragment newInstance() {
         TagFragment fragment = new TagFragment();

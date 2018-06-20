@@ -19,16 +19,9 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
     <ImageView
-        android:layout_width="70dp"
+        android:layout_width="90dp"
         android:id="@+id/bg_left"
         android:layout_marginTop="10dp"
-        android:background="#cccccc"
-        android:layout_height="70dp" />
-    <ImageView
-        android:layout_width="70dp"
-        android:id="@+id/bg_right"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"
         android:background="#cccccc"
         android:layout_height="70dp" />
     <ImageView
@@ -37,12 +30,9 @@
         android:layout_height="80dp"
         android:layout_gravity="center"
         android:scaleType="centerCrop"
-        android:background="#ccccff"
-
         android:contentDescription="@string/app_name" >
 <!--         android:src="@drawable/ic_launcher" -->
     </ImageView>
-
 </FrameLayout>
     <LinearLayout
             android:layout_width="wrap_content"

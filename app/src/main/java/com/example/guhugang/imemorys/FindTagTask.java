@@ -44,7 +44,6 @@ public class FindTagTask extends AsyncTask<String,Void,Object> {
                 dbDao.deleteAll(taggedImageItemList.get(i).getImagePath());
                 taggedImageItemList.remove(i);
                 i--;
-
             }
         }
         if(taggedImageItemList==null)return;
@@ -85,7 +84,7 @@ public class FindTagTask extends AsyncTask<String,Void,Object> {
             Map.Entry<String, PhotoUpImageBucket<TaggedImageItem>> entry = (Map.Entry<String, PhotoUpImageBucket<TaggedImageItem>>) itr
                     .next();
 
-            if(entry.getValue().imageList.size()>4)
+//            if(entry.getValue().imageList.size()>4)
               tmpList.add(entry.getValue());
         }
         return tmpList;

@@ -23,9 +23,7 @@ public class DBHelper extends SQLiteOpenHelper {
 				"(id INTEGER PRIMARY KEY AUTOINCREMENT,pictureid VARCHAR UNIQUE,path VARCHAR,faceid VARCHAR,category INTEGER," +
 				"face_left INTEGER,face_top INTEGER,face_width INTEGER,face_height INTEGER)");
 		db.execSQL("CREATE TABLE IF NOT EXISTS collection"+"(pid VARCHAR PRIMARY KEY,src_path VARCHAR,dest_path VARCHAR)");
-
 		db.execSQL("CREATE TABLE IF NOT EXISTS imagetag_data"+"(tagged_id VARCHAR PRIMARY KEY,tagged_path VARCHAR,image_tag VARCHAR,location VARCHAR)");
-
 	}
 
 	//如果DATABASE_VERSION值被改为2,系统发现现有数据库版本不同,即会调用onUpgrade

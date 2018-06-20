@@ -13,8 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -22,13 +25,15 @@ import com.example.guhugang.example.sqlite.DBDao;
 import com.example.guhugang.imemorys.PhotoUpImageItem;
 import com.example.guhugang.imemorys.R;
 import com.example.guhugang.imemorys.com.example.guhugang.imemorys.fragment.PhotoUpImageBucket;
+import com.example.guhugang.moreused.MultiChoiceAdapter;
 import com.example.guhugang.moreused.ShowGalleryActivity;
+import com.example.guhugang.view.CircleCheckBox;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AlbumItemAdapter<T extends PhotoUpImageItem> extends BaseAdapter {
+public class AlbumItemAdapter<T extends PhotoUpImageItem> extends MultiChoiceAdapter {
 	private List<T> list;
 	private LayoutInflater layoutInflater;
     DBDao dbDao;
@@ -40,9 +45,11 @@ public class AlbumItemAdapter<T extends PhotoUpImageItem> extends BaseAdapter {
 		this.mcontext=context;
 		dbDao=new DBDao(context);
 		layoutInflater = LayoutInflater.from(context);
-		
 	}
-	
+	public void changeItenms( List<T> list){
+		this.list=list;
+		notifyDataSetChanged();
+	}
 	@Override
 	public int getCount() {
 		return list.size();
@@ -69,6 +76,7 @@ public class AlbumItemAdapter<T extends PhotoUpImageItem> extends BaseAdapter {
 			convertView=layoutInflater.inflate(R.layout.album_item_adapter,parent,false);
 			holder=new Holder();
 			holder.imageView = (ImageView)convertView.findViewById(R.id.item);
+			holder.cb=(CircleCheckBox) convertView.findViewById(R.id.cb_grid);
 			convertView.setTag(holder);
 		}else {
 			holder=(Holder)convertView.getTag();
@@ -79,17 +87,13 @@ public class AlbumItemAdapter<T extends PhotoUpImageItem> extends BaseAdapter {
 	    .with(mcontext)
 	    .load(file)
 	    .into(holder.imageView);
-		holder.imageView.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-//				Intent intent = new Intent(mcontext, ShowGalleryActivity.class);
-//				intent.putExtra("imagelist",(ArrayList)list);
-//				intent.putExtra("position", position);
-//				mcontext.startActivity(intent);
-				ShowGalleryActivity.startWithElement((Activity)mcontext,(ArrayList<PhotoUpImageItem>)list,position,v);
-			}
-		});
-
+		if (mCheckable) {
+			holder.cb.setVisibility(View.VISIBLE);
+		} else {
+			holder.cb.setVisibility(View.INVISIBLE);
+		}
+		holder.cb.setCurrentNumber(((GridView)parent).getCheckedItemCount());
+		holder.cb.setChecked(((GridView) parent).isItemChecked(position));
 		return convertView;
 	}
 
@@ -101,17 +105,7 @@ public class AlbumItemAdapter<T extends PhotoUpImageItem> extends BaseAdapter {
 	
 	class Holder{
 		ImageView imageView;
-		
+		CircleCheckBox cb;
 	}
-	public boolean fileIsExists(String strFlie) {
-		try {
-			File file = new File(strFlie);
-			if (!file.exists()) {
-				return false;
-			}
-		}catch (Exception e){
-			return false;
-		}
-		return true;
-	}
+
 }

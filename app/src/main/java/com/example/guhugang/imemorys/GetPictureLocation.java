@@ -60,10 +60,7 @@ public class GetPictureLocation implements GeocodeSearch.OnGeocodeSearchListener
             float latitude = convertRationalLatLonToFloat(latValue, latRef);
             float longitude = convertRationalLatLonToFloat(lngValue, lngRef);
             Log.i("latitude",String.valueOf(latitude));
-
-
             try {
-
                 LatLonPoint latLng = new LatLonPoint(latitude,longitude);
                 GeocodeSearch geocoderSearch = new GeocodeSearch(context);
                 geocoderSearch.setOnGeocodeSearchListener(this);

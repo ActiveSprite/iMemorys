@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,11 +34,11 @@ public class FragmentFirst extends Fragment{
 	private List<PhotoUpImageBucket<PhotoUpImageItem>> list;
 	private ShareDeleteView shareDeleteView;
 	View rootView;
+	private int resultCode = 0;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
 		//引入我们的布局
-
 		if(rootView==null){
 			rootView=inflater.inflate(R.layout.fragmentfirst, null);
 		}
@@ -53,8 +54,14 @@ public class FragmentFirst extends Fragment{
 		super.onActivityCreated(savedInstanceState);
 		initView();
 		loadData();
-
 	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		refreshData();
+	}
+
 	public void initView(){
 
 		listView=(ListView)getActivity().findViewById(R.id.list1);
@@ -89,7 +96,18 @@ public class FragmentFirst extends Fragment{
 		});
 		photoUpAlbumHelper.execute(false);
 	}
-
+   private void refreshData(){
+	   photoUpAlbumHelper = PhotoUpAlbumHelper.getHelper();
+	   photoUpAlbumHelper.init(getActivity());
+	   photoUpAlbumHelper.setGetAlbumList(new PhotoUpAlbumHelper.GetAlbumList() {
+		   public void getAlbumList(List<PhotoUpImageBucket<PhotoUpImageItem>> list) {
+		   	   adapter.setArrayList(list);
+			   adapter.notifyDataSetChanged();
+			   FragmentFirst.this.list = list;
+		   }
+	   });
+	   photoUpAlbumHelper.execute(false);
+   }
 	public static FragmentFirst newInstance() {
 		FragmentFirst fragment = new FragmentFirst();
 		Bundle bundle = new Bundle();

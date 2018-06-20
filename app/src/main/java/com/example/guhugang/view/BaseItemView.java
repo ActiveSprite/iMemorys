@@ -26,6 +26,6 @@ public class BaseItemView extends LinearLayout {
         LocationItem.setOnClickListener(listener);
     }
     public void setCollectionItemListener(OnClickListener listener){
-        LocationItem.setOnClickListener(listener);
+        CollectionItem.setOnClickListener(listener);
     }
 }

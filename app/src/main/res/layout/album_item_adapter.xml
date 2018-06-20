@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 <com.example.guhugang.imemorys.MyImageView
     android:id="@+id/item"
     android:layout_width="match_parent"
@@ -10,4 +9,14 @@
     android:transitionName="share"
     android:scaleType="centerCrop"
     />
-</LinearLayout>
+    <com.example.guhugang.view.CircleCheckBox
+        android:layout_width="wrap_content"
+        android:id="@+id/cb_grid"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:layout_gravity="right"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:clickable="false"
+        />
+</FrameLayout>

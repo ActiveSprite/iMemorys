@@ -16,14 +16,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.transition.Explode;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.Toast;
 
 
@@ -36,6 +39,7 @@ import com.example.guhugang.imemorys.SwicherAdapter;
 import com.example.guhugang.imemorys.com.example.guhugang.imemorys.fragment.ConstantState;
 import com.example.guhugang.imemorys.com.example.guhugang.imemorys.fragment.MediaAdapter;
 import com.example.guhugang.imemorys.com.example.guhugang.imemorys.fragment.PictureFragment;
+import com.example.guhugang.view.CommonPopupWindow;
 import com.shizhefei.view.largeimage.LargeImageView;
 
 import org.lasque.tusdk.TuSdkGeeV1;
@@ -72,20 +76,21 @@ public abstract class GalleryActivity extends AppCompatActivity implements View.
     ArrayList<LargeImageView>mViews;
     MediaAdapter adapter;
     ContentResolver cr;
-
-
-
+    Button delete;
+    Button cancel;
+    private CommonPopupWindow window;
     DBDao dbDao;
+    View parent;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-        }
-        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            Window window = getWindow();
+//            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+//        }
+//        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         getWindow().setExitTransition(new Explode());
         setContentView(R.layout.show_bigphoto);
         viewpager=(ViewPager) findViewById(R.id.vp);
@@ -100,8 +105,8 @@ public abstract class GalleryActivity extends AppCompatActivity implements View.
         dbDao=new DBDao(this);
         fl=(FrameLayout) findViewById(R.id.fl);
         mViews=new ArrayList();
-
-
+        parent=findViewById(R.id.fl);
+        initPopupWindow();
         ConstantState constantState=ConstantState.getInstance();
         constantState.setonEditModeListener(new ConstantState.onEditModeChangeListener() {
             @Override
@@ -139,18 +144,6 @@ public abstract class GalleryActivity extends AppCompatActivity implements View.
         }
         if(imglist!=null){
             adapter=new MediaAdapter(getSupportFragmentManager(),imglist);
-//            viewpager.setOffscreenPageLimit(0);
-//            viewpager.setLayerType(View.LAYER_TYPE_HARDWARE, null);
-//            viewpager.setPageTransformer(true, new ViewPager.PageTransformer() {
-//
-//                @Override
-//                public void transformPage(View page, float position) {
-//                    //rollingPage(page,position);//调用翻页效果
-//                    imitateQQ(page,position);
-//                    //raised3D(page,position);
-//                    //sink3D(page,position);
-//                }
-//            });
             viewpager.setAdapter(adapter);
             viewpager.setCurrentItem(position);
             viewpager.setPageMargin((int)getResources().getDimensionPixelOffset(R.dimen.viewpager_margin));
@@ -202,12 +195,13 @@ public abstract class GalleryActivity extends AppCompatActivity implements View.
             case R.id.edit:edit();break;
             case R.id.reserve: collect();break;
             case R.id.share: share();break;
-            case R.id.delete: break;
+            case R.id.delete: PopupWindow win=window.getPopupWindow();
+                win.setAnimationStyle(R.style.animRotate);
+                window.showAtLocation(parent, Gravity.BOTTOM, 0, 0);break;
             case R.id.more :break;
 
         }
     }
-
     @Override
     public void onPause(){
         super.onPause();
@@ -267,9 +261,66 @@ public abstract class GalleryActivity extends AppCompatActivity implements View.
         startActivity(Intent.createChooser(shareIntent, "分享图片"));
 
     }
+    public void deletePicture(){
+        if(imglist!=null){
+            PictureFragment pictureFragment=(PictureFragment)adapter.currentFragment;
+            int position=pictureFragment.getPosition();
+            String path=pictureFragment.getPath();
+            imglist.remove(position);
+            adapter.swapDataSet(imglist);
+            dbDao.deleteAll(path);
+            Toast.makeText(this,"删除成功",Toast.LENGTH_SHORT).show();
+        }
+    }
     public void onDestroy(){
         super.onDestroy();
         ConstantState constantState=ConstantState.getInstance();
         constantState.setEditMode(false,null);
     }
+    private void initPopupWindow() {
+        // get the height of screen
+        // create popup window
+        window=new CommonPopupWindow(this, R.layout.popup_view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT) {
+            @Override
+            protected void initView() {
+                View view=getContentView();
+                delete=(Button)view.findViewById(R.id.id_delete);
+                cancel=(Button)view.findViewById(R.id.id_cancel);
+
+            }
+            @Override
+            protected void initEvent() {
+                delete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        deletePicture();
+                        window.getPopupWindow().dismiss();
+                    }
+                });
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        window.getPopupWindow().dismiss();
+                    }
+                });
+            }
+
+            @Override
+            protected void initWindow() {
+                super.initWindow();
+                PopupWindow instance=getPopupWindow();
+                instance.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                    @Override
+                    public void onDismiss() {
+                        WindowManager.LayoutParams lp=getWindow().getAttributes();
+                        lp.alpha=1.0f;
+                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                        getWindow().setAttributes(lp);
+                    }
+                });
+            }
+        };
+    }
+
+
 }

@@ -35,13 +35,6 @@ import com.example.guhugang.moreused.ImageResizer;
 import com.shizhefei.view.largeimage.LargeImageView;
 import com.shizhefei.view.largeimage.factory.FileBitmapDecoderFactory;
 
-import org.lasque.tusdk.TuSdkGeeV1;
-import org.lasque.tusdk.core.TuSdkResult;
-import org.lasque.tusdk.core.utils.TLog;
-import org.lasque.tusdk.core.utils.image.BitmapHelper;
-import org.lasque.tusdk.impl.activity.TuFragment;
-import org.lasque.tusdk.impl.components.TuEditMultipleComponent;
-import org.lasque.tusdk.modules.components.TuSdkComponent;
 
 import java.io.File;
 
@@ -56,13 +49,15 @@ public class PictureFragment extends Fragment{
     String path;
     String ImageId;
     Handler handler;
+    int position;
     Animation animation;
     ImageResizer imageResizer;
-    public static PictureFragment newInstance(String path,String imageId) {
+    public static PictureFragment newInstance(String path,String imageId,int position) {
         PictureFragment imageFragment = new PictureFragment();
         Bundle args = new Bundle();
         args.putString("image", path);
         args.putString("imageid",imageId);
+        args.putInt("position",position);
         imageFragment.setArguments(args);
         return imageFragment;
     }
@@ -77,6 +72,7 @@ public class PictureFragment extends Fragment{
         layer2.setMinimumScaleType(SubsamplingScaleImageView.SCALE_TYPE_CUSTOM);
         path= getArguments().getString("image");
         ImageId=getArguments().getString("imageid");
+        position=getArguments().getInt("position");
         handler=new Handler();
         layer1.setTransitionName("picture");
         final File file = new File(path) ;
@@ -87,6 +83,9 @@ public class PictureFragment extends Fragment{
         return path;
     }
     public String getImageId(){return ImageId;}
+    public int getPosition(){
+        return position;
+    }
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 

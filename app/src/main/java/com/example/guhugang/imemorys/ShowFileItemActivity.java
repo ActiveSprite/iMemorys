@@ -14,9 +14,6 @@ import java.io.File;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 
 public class ShowFileItemActivity extends com.example.guhugang.example.guhugang.uploadfileservice.AlbumItemActivity {
-
-
-
     @Override
     public void setData() {
         Intent intent = getIntent();

@@ -5,4 +5,7 @@ package com.example.guhugang.imemorys.com.example.guhugang.imemorys.fragment;
  */
 
 public class SeniorData {
+    public String title;
+    public String path;
+    public int num;
 }

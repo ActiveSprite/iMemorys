@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/jump_search"
-        android:icon="@drawable/search"
+        android:icon="@drawable/ic_search_black_24dp"
         app:showAsAction="always"
         android:inputType="textCapWords"
         android:imeOptions="actionSearch"

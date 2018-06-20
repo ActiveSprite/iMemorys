@@ -4,7 +4,7 @@
 
     <style name="AppTheme" parent="AppTheme.Parent">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorActionMode</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorActionModeDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="actionModeStyle">@style/CustomActionMode</item>
@@ -56,6 +56,11 @@
 
     <style name="Theme.ToolBar.Base.Subtitle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColor">@android:color/black</item>
     </style>
+    <style name="animRotate">
+        <item name="android:windowEnterAnimation">@anim/rotate_in</item>
+        <item name="android:windowExitAnimation">@anim/rotate_out</item>
+    </style>
+
 </resources>

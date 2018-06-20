@@ -59,6 +59,10 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder>
             }
         }
     }
+    public void changeData(List<PhotoUpImageBucket<TaggedImageItem>> mDatas){
+        this.mDatas=mDatas;
+        notifyDataSetChanged();
+    }
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
@@ -71,22 +75,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder>
     public void onBindViewHolder(MyViewHolder holder, final int position)
     {
         File file=new File(mDatas.get(position).getImageList().get(0).getImagePath());
-
-     if(isneed) {
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-       BitmapFactory.decodeFile(mDatas.get(position).getImageList().get(0).getImagePath(), options);
-       int scale=options.outHeight/options.outWidth;
-       int screenWidth=mContext.getResources().getDisplayMetrics().widthPixels;
-        ViewGroup.LayoutParams lp=holder.imageView.getLayoutParams();
-
-            lp.width = screenWidth /3;
-            lp.height = heightList.get(position);
-            holder.imageView.setLayoutParams(lp);
-        }else {
-            holder.cardView.setCardElevation(0);
-        }
- //       int screenWidth=mContext.getResources().getDisplayMetrics().widthPixels;
         Glide.with(mContext)
                 .load(file)
                 .centerCrop()
@@ -117,14 +105,12 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder>
         ImageView imageView;
         TextView tv;
         TextView num;
-        CardView cardView;
         public MyViewHolder(View view)
         {
             super(view);
             imageView=(ImageView) view.findViewById(R.id.tag_img);
             tv = (TextView) view.findViewById(R.id.id_item);
             num=(TextView)view.findViewById(R.id.id_tag_num);
-            cardView=(CardView)view.findViewById(R.id.id_card);
         }
     }
     public boolean fileIsExists(String strFlie) {

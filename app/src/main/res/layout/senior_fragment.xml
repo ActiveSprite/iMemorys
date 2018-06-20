@@ -2,5 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+    <GridView
+        android:layout_width="match_parent"
+        android:id="@+id/id_senior_list"
+        android:layout_margin="1dp"
+        android:horizontalSpacing="2dp"
+        android:numColumns="2"
+        android:scrollbars="none"
+        android:verticalSpacing="2dp"
+        android:layout_height="match_parent"/>
 </LinearLayout>

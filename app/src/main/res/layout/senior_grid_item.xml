@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:padding="15dp"
     android:layout_height="match_parent">
 
+            <com.example.guhugang.imemorys.MyImageView
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:id="@+id/senior_img"
+                android:scaleType="centerCrop"
+                />
+            <TextView
+               android:id="@+id/id_senior_title"
+               android:layout_width="match_parent"
+               android:text="标题"
+               android:textSize="15sp"
+               android:paddingTop="5dp"
+               android:textColor="@color/lsq_color_black"
+               android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/id_senior_num"
+                android:layout_width="match_parent"
+                android:text="0张"
+                android:paddingBottom="10dp"
+                android:layout_height="wrap_content" />
 </LinearLayout>

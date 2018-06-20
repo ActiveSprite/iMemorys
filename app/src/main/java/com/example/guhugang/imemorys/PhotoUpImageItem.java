@@ -7,6 +7,7 @@ public class PhotoUpImageItem implements Serializable {
 	private String imageId;
 	private String imagePath;
 	private boolean isSelected = false;
+	public String time;
 	
 	public String getImageId() {
 		return imageId;

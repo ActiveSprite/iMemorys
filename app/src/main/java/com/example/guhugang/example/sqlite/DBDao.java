@@ -375,6 +375,11 @@ public class DBDao {
          return false;
     }
     public void deleteAll(String path){
+        ContentResolver cr =mContext.getContentResolver();
+        int re = cr.delete(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                "_data = ?",
+                new String[]{path}
+        );
         deleteCollectionItem(path);
         deleteFp(path);
         deleteFace(path);

@@ -45,7 +45,6 @@ public class LocationFragment extends Fragment {
     }
     public void initView(){
         recyclerView=(RecyclerView)getActivity().findViewById(R.id.tag_list);
-        mRelativeLayout=(RelativeLayout)getActivity().findViewById(R.id.id_bg_layout);
     }
     public void loadData(){
 //        FindTagTask tagTask=new FindTagTask(getActivity());

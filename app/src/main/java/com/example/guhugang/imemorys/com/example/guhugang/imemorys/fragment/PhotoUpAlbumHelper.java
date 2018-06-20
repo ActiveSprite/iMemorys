@@ -97,7 +97,8 @@ public class PhotoUpAlbumHelper extends AsyncTask<Object, Object, Object>{
 			buildImagesBucketList();
 		}
 		List<PhotoUpImageBucket> tmpList = new ArrayList<PhotoUpImageBucket>();
-		tmpList.add(allPictures);
+			tmpList.add(allPictures);
+
 		Iterator<Entry<String, PhotoUpImageBucket<PhotoUpImageItem>>> itr = bucketList.entrySet().iterator();
 		while (itr.hasNext()) {
 			Entry<String, PhotoUpImageBucket<PhotoUpImageItem>> entry = (Entry<String, PhotoUpImageBucket<PhotoUpImageItem>>) itr

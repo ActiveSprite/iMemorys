@@ -3,6 +3,6 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="colorActionMode">#3F51B5</color>
-    <color name="colorActionModeDark">#303F9F</color>
+    <color name="colorActionMode">#0000</color>
+    <color name="colorActionModeDark">#999999</color>
 </resources>

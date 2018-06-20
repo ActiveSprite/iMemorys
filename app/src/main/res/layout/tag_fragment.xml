@@ -3,43 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <RelativeLayout
-        android:id="@+id/id_bg_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/id_decription"
-            android:layout_width="180dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/lsq_color_gray"
-            android:textSize="15sp"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:text="为您的照片打上标签，在照片足够的时候自动添加标签"
-            />
-        <TextView
-            android:id="@+id/id_tag_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/id_decription"
-            android:layout_centerHorizontal="true"
-            android:gravity="center"
-            android:text="标签"
-            android:textColor="@color/lsq_color_black"
-            android:textSize="20sp" />
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_centerHorizontal="true"
-            android:layout_above="@id/id_tag_text"
-            android:src="@drawable/tag_icon"
-            android:alpha="0.5"
-            />
-    </RelativeLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/tag_list"
-        android:background="#ffffffff"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />

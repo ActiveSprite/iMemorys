@@ -1,22 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:windowSoftInputMode="adjustPan"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
     <android.support.v7.widget.Toolbar
         android:id="@+id/search_bar_toolbar"
         android:layout_width="match_parent"
         android:background="@color/colorActionMode"
         android:layout_height="?attr/actionBarSize"
         app:layout_scrollFlags="scroll|enterAlways"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/AppTheme.PopupOverlay"
-        />
-    <FrameLayout
-        android:id="@+id/search_content"
+        >
+        <EditText
+            android:id="@+id/id_search"
+            android:background="@drawable/tag_bt_bg"
+            android:padding="5dp"
+            android:textColor="@color/lsq_color_black"
+            android:hint="搜索照片"
+            android:focusable="true"
+            android:textColorHint="#cccccc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </android.support.v7.widget.Toolbar>
+<FrameLayout
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:windowSoftInputMode="adjustPan"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+   <ScrollView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:orientation="vertical"
+           android:layout_height="wrap_content">
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="搜索历史"
+               android:layout_marginLeft="10dp"
+               />
+           <co.lujun.androidtagview.TagContainerLayout
+               android:id="@+id/history_tag"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_margin="0dp"
+               android:padding="10dp"
+               app:container_enable_drag="false"
+               app:horizontal_interval="10dp"
+               app:vertical_interval="10dp"
+               app:tag_clickable="true"
+               app:tag_theme="pure_teal" />
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="时间"
+               android:layout_marginLeft="10dp"
+               />
+           <co.lujun.androidtagview.TagContainerLayout
+               android:id="@+id/time_tag"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_margin="0dp"
+               android:padding="10dp"
+               app:container_enable_drag="false"
+               app:horizontal_interval="10dp"
+               app:vertical_interval="10dp"
+               app:tag_clickable="true"
+               app:tag_theme="pure_teal" />
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="地点"
+               android:layout_marginLeft="10dp"
+               />
+           <co.lujun.androidtagview.TagContainerLayout
+               android:id="@+id/local_tag"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_margin="0dp"
+               android:padding="10dp"
+               app:container_enable_drag="false"
+               app:horizontal_interval="10dp"
+               app:vertical_interval="10dp"
+               app:tag_clickable="true"
+               app:tag_theme="pure_teal" />
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="事物"
+               android:layout_marginLeft="10dp"
+               />
+           <co.lujun.androidtagview.TagContainerLayout
+               android:id="@+id/things_tag"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_margin="0dp"
+               android:padding="10dp"
+               app:container_enable_drag="false"
+               app:horizontal_interval="10dp"
+               app:vertical_interval="10dp"
+               app:tag_clickable="true"
+               app:tag_theme="pure_teal" />
+       </LinearLayout>
+   </ScrollView>
+</LinearLayout>
+    <ListView
+        android:background="#ffffffff"
+        android:id="@+id/id_datalist"
+        android:visibility="invisible"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </FrameLayout>
+        android:layout_height="match_parent"/>
+</FrameLayout>
 </LinearLayout>

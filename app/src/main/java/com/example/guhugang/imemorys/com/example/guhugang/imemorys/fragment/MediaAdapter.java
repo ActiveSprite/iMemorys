@@ -25,10 +25,10 @@ public class MediaAdapter extends FragmentStatePagerAdapter {
         this.list=list;
     }
     @Override
-    public Fragment getItem(int position) {
+    public Fragment getItem(int position){
         String path=list.get(position).getImagePath();
         String id=list.get(position).getImageId();
-        return new PictureFragment().newInstance(path,id);
+        return new PictureFragment().newInstance(path,id,position);
     }
 
     @Override public Object instantiateItem(ViewGroup container, int position) {

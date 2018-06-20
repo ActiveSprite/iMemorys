@@ -14,7 +14,6 @@
             android:background="@color/colorActionMode"
             android:layout_height="?attr/actionBarSize"
             app:layout_scrollFlags="scroll|enterAlways"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:layout_collapseMode="pin"/>
     <GridView
@@ -27,6 +26,16 @@
         android:scrollbars="none"
         android:verticalSpacing="2dp" />
     </LinearLayout>
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation_grid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="0dp"
+        android:layout_marginStart="0dp"
+        android:background="?android:attr/windowBackground"
+        android:layout_gravity="bottom"
+        android:visibility="invisible"
+        app:menu="@menu/navigation_grid" />
 </android.support.design.widget.CoordinatorLayout>
 
 

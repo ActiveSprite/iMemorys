@@ -1,13 +1,17 @@
 package com.example.guhugang.imemorys;
 
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -15,23 +19,27 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import android.util.Log;
 import android.view.Gravity;
 
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.Toast;
 
 import com.example.guhugang.example.guhugang.uploadfileservice.ShowCategoryActivity;
 import com.example.guhugang.imemorys.com.example.guhugang.imemorys.fragment.AiFragment;
 import com.example.guhugang.imemorys.com.example.guhugang.imemorys.fragment.ConstantState;
 import com.example.guhugang.imemorys.com.example.guhugang.imemorys.fragment.FragmentFirst;
 import com.example.guhugang.imemorys.com.example.guhugang.imemorys.fragment.PhotoFragment;
+import com.example.guhugang.imemorys.com.example.guhugang.imemorys.fragment.SniorFragment;
 import com.example.guhugang.moreused.DeletePopupWindow;
 import com.example.guhugang.moreused.ShareDeleteView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener{
@@ -94,21 +102,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},1);
+            Log.e("permission","denied");
+        }
+
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         initView();
         initEvents();
         initValue();
+        String content = "2018年5月12日";
+
+        String pattern = "\\d{1,4}\\D\\d{1,2}\\D\\d{1,2}.";
+        String result = content.replaceAll("\\D","/");
+        Log.i("result",result);
+        boolean isMatch = Pattern.matches(pattern, content);
+        Log.i("matcher",String.valueOf(isMatch));
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//               new GetPictureLocation(MainActivity.this).getLocationInfo(path);
+//            }
+//        }).start();
+        this.startService(new Intent(this,ImageTagService.class));
 
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-               new GetPictureLocation(MainActivity.this).getLocationInfo(path);
-            }
-        }).start();
-
-//          this.startService(new Intent(this,ImageTagService.class));
     }
     private void initEvents() {
 
@@ -121,19 +141,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if(state)
                    shareDeleteView.setVisibility(View.VISIBLE);
                 else
-                    shareDeleteView.setVisibility(View.INVISIBLE);
+                   shareDeleteView.setVisibility(View.INVISIBLE);
             }
         });
     }
-
     private void initView() {
-
         shareDeleteView=(ShareDeleteView)findViewById(R.id.s_d_view);
         deletePopupWindow=new DeletePopupWindow(this,this);
         viewPager = (ViewPager) findViewById(R.id.view_page);
         tab01=PhotoFragment.newInstance();
         tab02=FragmentFirst.newInstance();
-        tab03= AiFragment.newInstance();
+        tab03= SniorFragment.newInstance();
         fragments=new ArrayList<>();
         fragments.add(tab01);
         fragments.add(tab02);
@@ -222,10 +240,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
 
         switch (v.getId()) {
-
-
             case R.id.delete_bt:
-
                 deletePopupWindow.showAtLocation(MainActivity.this.findViewById(R.id.container),
                         Gravity.BOTTOM| Gravity.CENTER_HORIZONTAL, 0, 0);
                 break;
@@ -279,5 +294,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+            case 1:
+                if(grantResults.length>0&&grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                }else {
+                    Toast.makeText(this,"你拒绝了读取磁盘权限！！",Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+                break;
+        }
     }
 }

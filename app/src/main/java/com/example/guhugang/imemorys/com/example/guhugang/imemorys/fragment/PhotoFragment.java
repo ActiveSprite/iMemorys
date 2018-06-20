@@ -11,12 +11,18 @@ import java.util.ListIterator;
 import java.util.Map;
 import java.util.TimeZone;
 
+import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Images.Media;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,9 +30,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.example.guhugang.imemorys.GridItem;
 import com.example.guhugang.imemorys.ImageScanner;
+import com.example.guhugang.imemorys.MainActivity;
 import com.example.guhugang.imemorys.PhotoUpImageItem;
 import com.example.guhugang.imemorys.R;
 import com.example.guhugang.imemorys.StickyGridAdapter;
@@ -58,10 +66,7 @@ public class PhotoFragment extends Fragment implements OnClickListener{
 		return rootView;
 
 	}
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		mGridView = (GridView)getActivity().findViewById(R.id.asset_grid);
-		ViewCompat.setNestedScrollingEnabled(mGridView, true);
+	public void scanImages(){
 		mScanner = new ImageScanner(getActivity());
 
 		mScanner.scanImages(new ImageScanner.ScanCompleteCallBack() {
@@ -73,7 +78,6 @@ public class PhotoFragment extends Fragment implements OnClickListener{
 			public void scanComplete(Cursor cursor) {
 				// 关闭进度条
 				mProgressDialog.dismiss();
-
 				while (cursor.moveToNext()) {
 					// 获取图片的路径
 					String path = cursor.getString(cursor
@@ -112,6 +116,17 @@ public class PhotoFragment extends Fragment implements OnClickListener{
 			}
 		});
 	}
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		mGridView = (GridView)getActivity().findViewById(R.id.asset_grid);
+		ViewCompat.setNestedScrollingEnabled(mGridView, true);
+		if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
+			ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},1);
+			Log.e("permission","denied");
+		}else{
+			scanImages();
+		};
+	}
 
 	public static String paserTimeToYM(long time) {
 		System.setProperty("user.timezone", "Asia/Shanghai");
@@ -131,4 +146,17 @@ public class PhotoFragment extends Fragment implements OnClickListener{
 		return fragment;
 	}
 
+	@Override
+	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+		switch (requestCode){
+			case 1:
+				if(grantResults.length>0&&grantResults[0]==PackageManager.PERMISSION_GRANTED){
+					scanImages();
+				}else {
+					Toast.makeText(getActivity(),"你拒绝了读取磁盘权限！！",Toast.LENGTH_SHORT).show();
+					getActivity().finish();
+				}
+				break;
+		}
+	}
 }

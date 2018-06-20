@@ -1,4 +1,4 @@
-package com.zzw.popupwindow.view;
+package com.example.guhugang.view;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -35,7 +35,7 @@ public abstract class CommonPopupWindow {
     protected abstract void initEvent();
     protected void initWindow() {
         mInstance.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        mInstance.setOutsideTouchable(true);
+//        mInstance.setOutsideTouchable(true);
         mInstance.setTouchable(true);
     }
 

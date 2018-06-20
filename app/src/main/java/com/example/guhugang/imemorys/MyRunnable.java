@@ -53,13 +53,15 @@ public class MyRunnable implements Runnable {
 
                 GetImgTag imgTag = new GetImgTag();
                 String tag_result = imgTag.getTag(myparams);
+                Log.i("tag",tag_result);
                 taggedList.get(i).setTag(tag_result);
                 GetPictureLocation getPictureLocation=new GetPictureLocation(mContext);
                 String location=getPictureLocation.getLocationInfo(taggedList.get(i).getImagePath());
                 if(location!=null)
                     taggedList.get(i).setLocation(location);
                 try {
-                    dbDao.insertTag(taggedList.get(i));
+                    if(taggedList.get(i)!=null&&!taggedList.get(i).getTag().isEmpty())
+                       dbDao.insertTag(taggedList.get(i));
                 }catch (Exception e){
 
                 }

@@ -18,6 +18,7 @@ import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.guhugang.imemorys.PhotoUpImageItem;
 import com.example.guhugang.imemorys.R;
+import com.example.guhugang.moreused.MultiChoiceAdapter;
 
 
 import java.io.File;
@@ -25,14 +26,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class AlbumsAdapter extends BaseAdapter {
+public class AlbumsAdapter extends MultiChoiceAdapter {
 
 	private List<PhotoUpImageBucket<PhotoUpImageItem>> arrayList;
 	private LayoutInflater layoutInflater;
 	private Toast mToast;
 	private Context context;
 	private ListView listView;
-	private boolean mCheckable;
 	private String TAG = AlbumsAdapter.class.getSimpleName();
 
 	public AlbumsAdapter(Context context,ListView listView,List<PhotoUpImageBucket<PhotoUpImageItem>> arrayList){
@@ -40,16 +40,12 @@ public class AlbumsAdapter extends BaseAdapter {
 		this.listView=listView;
 		this.arrayList=arrayList;
 		layoutInflater = LayoutInflater.from(context);
-
-
-
 	};
 	@Override
 	public int getCount() {
 		if(arrayList==null)return 0;
 		return arrayList.size();
 	}
-
 	@Override
 	public Object getItem(int position) {
 		if(arrayList==null)return null;
@@ -64,13 +60,11 @@ public class AlbumsAdapter extends BaseAdapter {
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		final Holder holder;
-
 		if (convertView == null) {
 			holder = new Holder();
 			convertView = layoutInflater.inflate(R.layout.ablums_adapter_item, parent, false);
 			holder.image = (ImageView) convertView.findViewById(R.id.image);
 			holder.bg_left=(ImageView) convertView.findViewById(R.id.bg_left);
-			holder.bg_right=(ImageView) convertView.findViewById(R.id.bg_right);
 			holder.name = (TextView) convertView.findViewById(R.id.name);
 			holder.count = (TextView) convertView.findViewById(R.id.count);
 			holder.cb=(CheckBox) convertView.findViewById(R.id.cb);
@@ -88,10 +82,8 @@ public class AlbumsAdapter extends BaseAdapter {
 				.into(holder.image);
 		if (mCheckable) {
 			holder.cb.setVisibility(View.VISIBLE);
-//			holder.enter_logo.setVisibility(View.INVISIBLE);
 		} else {
 			holder.cb.setVisibility(View.INVISIBLE);
-//			holder.enter_logo.setVisibility(View.VISIBLE);
 		}
 		holder.cb.setChecked(((ListView) parent).isItemChecked(position));
 		return convertView;
@@ -109,9 +101,5 @@ public class AlbumsAdapter extends BaseAdapter {
 
 	public void setArrayList(List<PhotoUpImageBucket<PhotoUpImageItem>> arrayList) {
 		this.arrayList = arrayList;
-	}
-
-	public void setCheckable(boolean checkable) {
-		mCheckable = checkable;
 	}
 }

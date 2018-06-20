@@ -141,7 +141,6 @@ public class UploadService  extends IntentService{
         if(ftklist==null){return;}
         while(ftklist.size()!=0) {
             category++;
-            Log.i("category",String.valueOf(category));
             String facetoken = ftklist.get(0).getfacetoken();
             ftklist.get(0).setCategory(category);
             dbDao.updatecategory(ftklist.get(0).getImageId(),ftklist.get(0).getCategory());
@@ -155,9 +154,6 @@ public class UploadService  extends IntentService{
 
             }
 
-            for (int i = 0; i < ftklist.size(); i++){
-                Log.i("明细",ftklist.get(i).toString());
-            }
             for (int i = 0; i < ftklist.size(); i++) {
 
                 if (ftklist.get(i).getCategory()!=0) {
@@ -166,8 +162,6 @@ public class UploadService  extends IntentService{
                 }
 
             }
-           Log.i("ftk",String.valueOf(ftklist.size()));
-
         }
         preference = getSharedPreferences("user", Context.MODE_PRIVATE);
         edit = preference.edit();

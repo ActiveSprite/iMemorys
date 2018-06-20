@@ -26,7 +26,6 @@ public class TaggedActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionBar =  getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-
     }
 
     public boolean onOptionsItemSelected(MenuItem item){

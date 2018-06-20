@@ -74,7 +74,8 @@ public class AiListAdapter extends BaseAdapter implements View.OnClickListener{
                 mContext.startActivity(intent);
                 break;
             case R.id.id_collection:
-
+                Intent intentCollection=new Intent(mContext,ShowResultActivity.class);
+                mContext.startActivity(intentCollection);
                 break;
             case R.id.id_face:
                 Intent intent_face=new Intent(mContext,ShowCategoryActivity.class);
